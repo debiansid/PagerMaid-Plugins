@@ -1181,7 +1181,7 @@
             "des": "指令：,trace"
         },
         {
-            "name": "markdown"
+            "name": "markdown",
             "version": "1.0",
             "section": "chat",
             "maintainer": "midori",
