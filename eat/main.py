@@ -195,7 +195,7 @@ async def eat(client_: Client, context: Message):
         if context.reply_to_message.from_user:
             user = context.reply_to_message.from_user
         else:
-            user = context.reply_to_message.chat
+            user = context.reply_to_message.sender_chat
     else:
         if len(context.parameter) == 1:
             user = context.parameter[0]
@@ -203,34 +203,26 @@ async def eat(client_: Client, context: Message):
                 user = int(user)
         else:
             user = context.from_user if context.from_user else context.sender_chat
-            if isinstance(user, str):
-                if user.startswith(".") or user.startswith("/") or user.startswith("-") or user.startswith("!"):
-                    user = context.from_user if context.from_user else context.sender_chat
-                else:
-                    try:
-                        user = await client_.get_users(user)
-                    except Exception:
-                        return await context.edit(f"{lang('error_prefix')}{lang('profile_e_nou')}")
-    target_user_id = user.id
-    if context.from_user:
-        if not context.from_user.photo:
-            return await context.edit("出错了呜呜呜 ~ 此用户无头像。")
-        photo = await client_.download_media(
-            context.from_user.photo.big_file_id,
-            f"plugins{sep}eat{sep}" + str(target_user_id) + ".jpg",
-        )
-    else:
-        try:
-            channel = await client_.get_chat(context.chat.id)
-            if channel.photo:
-                photo = await client_.download_media(
-                    channel.photo.big_file_id,
-                    f"plugins{sep}eat{sep}" + str(target_user_id) + ".jpg",
-                )
+        if isinstance(user, str):
+            if user.startswith(".") or user.startswith("/") or user.startswith("-") or user.startswith("!"):
+                user = context.from_user if context.from_user else context.sender_chat
             else:
-                return await context.edit("出错了呜呜呜 ~ 此频道无头像。")
-        except Exception as e:
-            return await context.edit(f"获取频道头像出错: {str(e)}")
+                try:
+                    user = await client_.get_users(user)
+                except Exception:
+                    return await context.edit(f"{lang('error_prefix')}{lang('profile_e_nou')}")
+    target_user_id = user.id
+    if not user.photo:
+        return await context.edit("出错了呜呜呜 ~ 此用户无头像。")
+    if isinstance(user, Chat) and user.photo:
+        photo_id = user.photo.big_file_id
+    else:
+        photo_id = user.photo.big_file_id
+    photo = await client_.download_media(
+        photo_id,
+        f"plugins{sep}eat{sep}" + str(target_user_id) + ".jpg",
+    )
+    reply_to = context.reply_to_message.id if context.reply_to_message else None
     if exists(f"plugins{sep}eat{sep}" + str(target_user_id) + ".jpg"):
         for num in range(1, max_number + 1):
             if not exists(f"plugins{sep}eat{sep}eat" + str(num) + ".png"):
@@ -363,7 +355,6 @@ async def eat(client_: Client, context: Message):
                         number = number[1:]
         except:
             number = randint(1, max_number)
-
         if exists(configFilePath):
             if await loadConfigFile(context) != 0:
                 await context.edit(f"加载配置文件异常，请确认从远程下载的配置文件格式是否正确")
