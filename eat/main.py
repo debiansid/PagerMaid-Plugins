@@ -18,7 +18,7 @@ from pagermaid.utils import lang, safe_remove
 from collections import defaultdict
 import json
 
-git_source = "https://raw.githubusercontent.com/midori01/PagerMaid-Plugins/v2/eat/"
+git_source = "https://raw.githubusercontent.com/midori01/PagerMaid-Plugins/v2/"
 positions = {
     "1": [297, 288],
     "2": [85, 368],
