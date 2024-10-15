@@ -34,6 +34,22 @@
             padding: 15px;
             border-radius: 5px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .plugin-name {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .command {
+            font-family: "Courier New", Courier, monospace;
+            color: white;
+            background-color: #4CAF50;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 1em;
+            margin-left: 10px;
         }
         .note {
             font-weight: bold;
@@ -44,14 +60,6 @@
             font-size: 0.9em;
             display: inline-block;
             margin-left: 10px;
-        }
-        .command {
-            font-family: "Courier New", Courier, monospace;
-            color: #4CAF50;
-            background-color: #e8f5e9;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.9em;
         }
         footer {
             background-color: #333;
@@ -82,19 +90,19 @@
     <section>
         <h2>Usage</h2>
         <ul>
-            <li>,apt_source add https://repo.lvlv.lv</li>
+            <li><span class="plugin-name">Add Source</span><span class="command">,apt_source add https://repo.lvlv.lv</span></li>
         </ul>
     </section>
     
     <section>
         <h2>Plugins List</h2>
         <ul>
-            <li>service (<span class="command">,service</span>) <span class="note">Docker Unsupported</span></li>
-            <li>traceroute (<span class="command">,t</span>)</li>
-            <li>speednext (<span class="command">,s</span>) <span class="note">PGP ≥ 1.5.0</span></li>
-            <li>speedtest (<span class="command">,s</span>) <span class="note">PGP &lt; 1.5.0</span></li>
-            <li>markdown (<span class="command">,m</span>)</li>
-            <li>eatx (<span class="command">,x</span>) <span class="note">PGP ≥ 1.5.0</span></li>
+            <li><span class="plugin-name">Service</span><span class="command">,service</span> <span class="note">Docker Unsupported</span></li>
+            <li><span class="plugin-name">Traceroute</span><span class="command">,t</span></li>
+            <li><span class="plugin-name">Speednext</span><span class="command">,s</span> <span class="note">PGP ≥ 1.5.0</span></li>
+            <li><span class="plugin-name">Speedtest</span><span class="command">,s</span> <span class="note">PGP &lt; 1.5.0</span></li>
+            <li><span class="plugin-name">Markdown</span><span class="command">,m</span></li>
+            <li><span class="plugin-name">Eatx</span><span class="command">,x</span> <span class="note">PGP ≥ 1.5.0</span></li>
             <li>…</li>
         </ul>
     </section>
