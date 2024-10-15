@@ -4,13 +4,13 @@ from pagermaid.utils import execute
 import os
 import re
 import platform
-import requests
+import urllib.request
 
 BESTTRACE_PATH = "/var/lib/pagermaid/plugins/besttrace"
 
 @listener(
     is_plugin=False,
-    command="t",
+    command="trace",
     need_admin=True,
     description="Perform a network trace using besttrace.",
     parameters="Provide the target to trace."
@@ -27,18 +27,16 @@ async def trace(message: Message):
         """Detect system architecture and download the appropriate besttrace binary."""
         arch = platform.machine()
         if arch == "x86_64":
-            url = "https://raw.githubusercontent.com/midori01/PagerMaid-Plugins/v2/traceroute/besttraceamd"
+            url = "https://raw.githubusercontent.com/midori01/PagerMaid-Plugins/v2/trace/besttraceamd"
         elif "arm" in arch:
-            url = "https://raw.githubusercontent.com/midori01/PagerMaid-Plugins/v2/traceroute/besttracearm"
+            url = "https://raw.githubusercontent.com/midori01/PagerMaid-Plugins/v2/trace/besttracearm"
         else:
             raise Exception("Unsupported architecture")
 
         # Download the binary if not already present
         if not os.path.exists(BESTTRACE_PATH):
             try:
-                response = requests.get(url)
-                with open(BESTTRACE_PATH, "wb") as f:
-                    f.write(response.content)
+                urllib.request.urlretrieve(url, BESTTRACE_PATH)
                 os.chmod(BESTTRACE_PATH, 0o755)  # Make the file executable
             except Exception as e:
                 raise Exception(f"Error downloading besttrace: {str(e)}")
