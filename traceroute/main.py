@@ -26,12 +26,16 @@ async def trace(message: Message):
     def detect_architecture():
         """Detect system architecture and download the appropriate besttrace binary."""
         arch = platform.machine()
-        if arch == "x86_64":
+        # Debugging line to check the architecture
+        print(f"Detected architecture: {arch}")
+
+        # Add more architectures as needed
+        if arch in ["x86_64"]:
             url = "https://raw.githubusercontent.com/midori01/PagerMaid-Plugins/v2/traceroute/besttraceamd"
-        elif "arm" in arch:
+        elif arch in ["aarch64"]:
             url = "https://raw.githubusercontent.com/midori01/PagerMaid-Plugins/v2/traceroute/besttracearm"
         else:
-            raise Exception("Unsupported architecture")
+            raise Exception(f"Unsupported architecture: {arch}")
 
         # Download the binary if not already present
         if not os.path.exists(BESTTRACE_PATH):
