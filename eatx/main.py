@@ -1,5 +1,3 @@
-""" PagerMaid module to handle sticker collection. """
-
 from PIL import Image
 from os.path import exists
 from os import sep
@@ -35,7 +33,6 @@ max_number = len(positions)
 configFilePath = f"plugins{sep}eat{sep}config.json"
 configFileRemoteUrlKey = "eat.configFileRemoteUrl"
 
-
 async def eat_it(context, user, base, mask, photo, number, layer=0):
     mask_size = mask.size
     photo_size = photo.size
@@ -49,7 +46,6 @@ async def eat_it(context, user, base, mask, photo, number, layer=0):
     mask1.paste(photo, mask=mask)
     numberPosition = positions[str(number)]
     isSwap = False
-    # 处理头像，放到和背景同样大小画布的特定位置
     try:
         isSwap = extensionConfig[str(number)]["isSwap"]
     except:
@@ -62,13 +58,11 @@ async def eat_it(context, user, base, mask, photo, number, layer=0):
     else:
         base.paste(mask1, (numberPosition[0], numberPosition[1]), mask1)
 
-    # 增加判断是否有第二个头像孔
     isContinue = len(numberPosition) > 2 and layer == 0
     if isContinue:
         await context._client.download_media(
             user.photo.big_file_id, f"plugins{sep}eat{sep}{str(user.id)}.jpg"
         )
-
         try:
             markImg = Image.open(f"plugins{sep}eat{sep}{str(user.id)}.jpg")
             maskImg = Image.open(
@@ -80,16 +74,13 @@ async def eat_it(context, user, base, mask, photo, number, layer=0):
         base = await eat_it(
             context, user, base, maskImg, markImg, numberPosition[2], layer + 1
         )
-
     temp = base.size[0] if base.size[0] > base.size[1] else base.size[1]
     if temp != 512:
         scale = 512 / temp
         base = base.resize(
             (int(base.size[0] * scale), int(base.size[1] * scale)), Image.LANCZOS
         )
-
     return base
-
 
 async def updateConfig(context):
     if configFileRemoteUrl := sqlite.get(configFileRemoteUrlKey, ""):
@@ -98,7 +89,6 @@ async def updateConfig(context):
         sqlite[configFileRemoteUrlKey] = configFileRemoteUrl
         return -1
     return 0
-
 
 async def downloadFileFromUrl(url, filepath):
     try:
@@ -109,46 +99,28 @@ async def downloadFileFromUrl(url, filepath):
         return -1
     return 0
 
-
 async def loadConfigFile(context, forceDownload=False):
     global positions, notifyStrArr, extensionConfig
     try:
         with open(configFilePath, "r", encoding="utf8") as cf:
-            # 读取已下载的配置文件
             remoteConfigJson = json.load(cf)
-            # positionsStr = json.dumps(positions)
-            # positions = json.loads(positionsStr)
-
-            # 读取配置文件中的positions
             positionsStr = json.dumps(remoteConfigJson["positions"])
             data = json.loads(positionsStr)
-            # 与预设positions合并
             positions = mergeDict(positions, data)
-
-            # 读取配置文件中的notifies
             data = json.loads(json.dumps(remoteConfigJson["notifies"]))
-            # 与预设positions合并
             notifyStrArr = mergeDict(notifyStrArr, data)
-
-            # 读取配置文件中的extensionConfig
             try:
                 data = json.loads(json.dumps(remoteConfigJson["extensionConfig"]))
-                # 与预设extensionConfig合并
                 extensionConfig = mergeDict(extensionConfig, data)
             except:
-                # 新增扩展配置，为了兼容旧的配置文件更新不出错，无视异常
                 pass
-
-            # 读取配置文件中的needDownloadFileList
             data = json.loads(json.dumps(remoteConfigJson["needDownloadFileList"]))
-            # 下载列表中的文件
             for file_url in data:
                 try:
                     fsplit = file_url.split("/")
                     filePath = f"plugins{sep}eat{sep}{fsplit[len(fsplit) - 1]}"
                     if not exists(filePath) or forceDownload:
                         await downloadFileFromUrl(file_url, filePath)
-
                 except:
                     await context.edit(f"下载文件异常，url：{file_url}")
                     return -1
@@ -156,24 +128,19 @@ async def loadConfigFile(context, forceDownload=False):
         return -1
     return 0
 
-
 def mergeDict(d1, d2):
     dd = defaultdict(list)
-
     for d in (d1, d2):
         for key, value in d.items():
             dd[key] = value
     return dict(dd)
 
-
 async def downloadFileByIds(ids, context):
     idsStr = f',{",".join(ids)},'
     try:
         with open(configFilePath, "r", encoding="utf8") as cf:
-            # 读取已下载的配置文件
             remoteConfigJson = json.load(cf)
             data = json.loads(json.dumps(remoteConfigJson["needDownloadFileList"]))
-            # 下载列表中的文件
             sucSet = set()
             failSet = set()
             for file_url in data:
@@ -203,7 +170,6 @@ async def downloadFileByIds(ids, context):
     except:
         await context.edit("更新下载模版图片失败，请确认配置文件是否正确")
 
-
 @listener(
     is_plugin=True,
     outgoing=True,
@@ -230,54 +196,21 @@ async def eat(client_: Client, context: Message):
             user = context.reply_to_message.from_user
         else:
             user = context.reply_to_message.sender_chat
-        if not user:
-            return await context.edit(f"{lang('error_prefix')}{lang('profile_e_no')}")
     else:
         if len(context.parameter) == 1:
             user = context.parameter[0]
             if user.isdigit():
                 user = int(user)
         else:
-            if context.from_user:
-                user = context.from_user
-            else:
-                user = context.sender_chat
-        if context.entities is not None:
-            if context.entities[0].type == MessageEntityType.TEXT_MENTION:
-                user = context.entities[0].user
-            elif context.entities[0].type == MessageEntityType.PHONE_NUMBER:
-                user = int(context.parameter[0])
-            elif context.entities[0].type == MessageEntityType.BOT_COMMAND:
-                if context.from_user:
-                    user = context.from_user
-                else:
-                    user = context.sender_chat
-            else:
-                return await context.edit(f"{lang('error_prefix')}{lang('arg_error')}")
-        if not (isinstance(user, User) or isinstance(user, Chat)):
-            if user[:1] in [".", "/", "-", "!"]:
-                if context.from_user:
-                    user = context.from_user
-                else:
-                    user = context.sender_chat
+            user = context.from_user if context.from_user else context.sender_chat
+        if isinstance(user, str):
+            if user.startswith(".") or user.startswith("/") or user.startswith("-") or user.startswith("!"):
+                user = context.from_user if context.from_user else context.sender_chat
             else:
                 try:
-                    try:
-                        user = await client_.get_users(user)
-                    except IndexError:
-                        user = await client_.get_chat(user)  # noqa
-                except (UsernameNotOccupied, UsernameInvalid):
-                    return await context.edit(
-                        f"{lang('error_prefix')}{lang('profile_e_nou')}"
-                    )
-                except OverflowError:
-                    return await context.edit(
-                        f"{lang('error_prefix')}{lang('profile_e_long')}"
-                    )
-                except Exception as exception:
-                    return await context.edit(
-                        f"{lang('error_prefix')}{lang('profile_e_nof')}"
-                    )
+                    user = await client_.get_users(user)
+                except Exception:
+                    return await context.edit(f"{lang('error_prefix')}{lang('profile_e_nou')}")
     target_user_id = user.id
     if not user.photo:
         return await context.edit("出错了呜呜呜 ~ 此用户无头像。")
@@ -285,7 +218,6 @@ async def eat(client_: Client, context: Message):
         user.photo.big_file_id,
         f"plugins{sep}eat{sep}" + str(target_user_id) + ".jpg",
     )
-
     reply_to = context.reply_to_message.id if context.reply_to_message else None
     if exists(f"plugins{sep}eat{sep}" + str(target_user_id) + ".jpg"):
         for num in range(1, max_number + 1):
@@ -309,14 +241,12 @@ async def eat(client_: Client, context: Message):
                         try:
                             p2 = int("".join(p1[1:]))
                         except:
-                            # 可能也有字母的参数
                             p2 = "".join(p1[1:])
                 elif p1[0] == "-":
                     if len(p1) > 1:
                         try:
                             p2 = int("".join(p1[1:]))
                         except:
-                            # 可能也有字母的参数
                             p2 = "".join(p1[1:])
                     if p2:
                         sqlite["eat.default-config"] = p2
@@ -328,19 +258,16 @@ async def eat(client_: Client, context: Message):
                 elif p1[0] == "/":
                     await context.edit(f"正在更新远程配置文件")
                     if len(p1) > 1:
-                        # 获取参数中的url
                         p2 = "".join(p1[1:])
                         if p2 == "delete":
                             del sqlite[configFileRemoteUrlKey]
                             await context.edit(f"已清空远程配置文件url")
                             return
                         if p2.startswith("http"):
-                            # 下载文件
                             if (await downloadFileFromUrl(p2, configFilePath)) != 0:
                                 await context.edit(f"下载配置文件异常，请确认url是否正确")
                                 return
                             else:
-                                # 下载成功，加载配置文件
                                 sqlite[configFileRemoteUrlKey] = p2
                                 if await loadConfigFile(context, True) != 0:
                                     await context.edit(f"加载配置文件异常，请确认从远程下载的配置文件格式是否正确")
@@ -348,15 +275,11 @@ async def eat(client_: Client, context: Message):
                                 else:
                                     await context.edit(f"下载并加载配置文件成功")
                         else:
-                            # 根据传入模版id更新模版配置，多个用"，"或者","隔开
-                            # 判断redis是否有保存配置url
-
                             splitStr = "，"
                             if "," in p2:
                                 splitStr = ","
                             ids = p2.split(splitStr)
                             if len(ids) > 0:
-                                # 下载文件
                                 configFileRemoteUrl = sqlite.get(
                                     configFileRemoteUrlKey, ""
                                 )
@@ -369,7 +292,6 @@ async def eat(client_: Client, context: Message):
                                         await context.edit(f"下载配置文件异常，请确认url是否正确")
                                         return
                                     else:
-                                        # 下载成功，更新对应配置
                                         if await loadConfigFile(context) != 0:
                                             await context.edit(
                                                 f"加载配置文件异常，请确认从远程下载的配置文件格式是否正确"
@@ -380,7 +302,6 @@ async def eat(client_: Client, context: Message):
                                 else:
                                     await context.edit(f"你没有订阅远程配置文件，更新个🔨")
                     else:
-                        # 没传url直接更新
                         if await updateConfig(context) != 0:
                             await context.edit(
                                 f"更新配置文件异常，请确认是否订阅远程配置文件，或从远程下载的配置文件格式是否正确"
@@ -390,7 +311,6 @@ async def eat(client_: Client, context: Message):
                             await context.edit(f"从远程更新配置文件成功")
                     return
                 elif p1[0] == "！" or p1[0] == "!":
-                    # 加载配置
                     if exists(configFilePath):
                         if await loadConfigFile(context) != 0:
                             await context.edit(f"加载配置文件异常，请确认从远程下载的配置文件格式是否正确")
@@ -426,20 +346,16 @@ async def eat(client_: Client, context: Message):
                     number = int(defaultConfig)
                 except:
                     number = str(defaultConfig)
-                    # 支持配置默认是倒立的头像
                     if number.startswith("."):
                         diu_round = True
                         number = number[1:]
-
         except:
             number = randint(1, max_number)
 
-        # 加载配置
         if exists(configFilePath):
             if await loadConfigFile(context) != 0:
                 await context.edit(f"加载配置文件异常，请确认从远程下载的配置文件格式是否正确")
                 return
-
         try:
             notifyStr = notifyStrArr[str(number)]
         except:
@@ -454,9 +370,8 @@ async def eat(client_: Client, context: Message):
         except:
             await context.edit(f"图片模版加载出错，请检查并更新配置：{str(number)}")
             return
-
         if diu_round:
-            markImg = markImg.rotate(180)  # 对图片进行旋转
+            markImg = markImg.rotate(180)
         try:
             number = str(number)
         except:
