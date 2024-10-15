@@ -10,7 +10,7 @@ BESTTRACE_PATH = "/var/lib/pagermaid/plugins/besttrace"
 
 @listener(
     is_plugin=False,
-    command="trace",
+    command="t",
     need_admin=True,
     description="Perform a network trace using besttrace.",
     parameters="Provide the target to trace."
@@ -27,9 +27,9 @@ async def trace(message: Message):
         """Detect system architecture and download the appropriate besttrace binary."""
         arch = platform.machine()
         if arch == "x86_64":
-            url = "https://raw.githubusercontent.com/midori01/PagerMaid-Plugins/v2/trace/besttraceamd"
+            url = "https://raw.githubusercontent.com/midori01/PagerMaid-Plugins/v2/traceroute/besttraceamd"
         elif "arm" in arch:
-            url = "https://raw.githubusercontent.com/midori01/PagerMaid-Plugins/v2/trace/besttracearm"
+            url = "https://raw.githubusercontent.com/midori01/PagerMaid-Plugins/v2/traceroute/besttracearm"
         else:
             raise Exception("Unsupported architecture")
 
