@@ -1182,7 +1182,7 @@
         },
         {
             "name": "traceroute",
-            "version": "1.102",
+            "version": "1.103",
             "section": "chat",
             "maintainer": "midori",
             "size": "1.3 kb",
