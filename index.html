@@ -4,61 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>ᴍɪᴅᴏʀɪ'ꜱ ᴘɢᴘ ʀᴇᴘᴏ</title>
+    <title>Midori's PGP Repo</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #f9f9f9;
             margin: 0;
             padding: 0;
+            color: #333;
+            line-height: 1.6;
         }
         header {
             background-color: #4CAF50;
             color: white;
-            padding: 10px 0;
+            padding: 20px 0;
             text-align: center;
         }
         .container {
-            margin: 20px;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-        h1 {
+        h1, h2 {
             text-align: center;
+            font-weight: normal;
+            margin: 0 0 20px;
         }
         ul {
-            list-style-type: none;
+            list-style: none;
             padding: 0;
         }
         li {
-            background-color: #fff;
+            background-color: #fafafa;
             margin: 10px 0;
             padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         .plugin-name {
             font-weight: bold;
-            font-size: 1.1em;
+            color: #333;
+            font-size: 1em;
         }
         .command {
             font-family: "Courier New", Courier, monospace;
-            color: white;
-            background-color: #4CAF50;
-            padding: 4px 8px;
+            color: #4CAF50;
+            background-color: #f1f8e9;
+            padding: 5px 10px;
             border-radius: 4px;
-            font-size: 1em;
-            margin-left: 10px;
+            font-size: 0.9em;
         }
         .note {
             font-weight: bold;
             color: #ff5722;
             background-color: #fff3e0;
-            border-radius: 3px;
-            padding: 2px 5px;
+            border-radius: 4px;
+            padding: 5px 10px;
             font-size: 0.9em;
-            display: inline-block;
             margin-left: 10px;
         }
         footer {
@@ -66,8 +74,6 @@
             color: white;
             text-align: center;
             padding: 20px 0;
-            position: relative;
-            width: 100%;
             margin-top: 40px;
         }
         footer a {
@@ -90,19 +96,19 @@
     <section>
         <h2>Usage</h2>
         <ul>
-            <li><span class="plugin-name">Add Source</span><span class="command">,apt_source add https://repo.lvlv.lv</span></li>
+            <li><span class="plugin-name">Add Source</span> <span class="command">,apt_source add https://repo.lvlv.lv</span></li>
         </ul>
     </section>
     
     <section>
         <h2>Plugins List</h2>
         <ul>
-            <li><span class="plugin-name">Service</span><span class="command">,service</span> <span class="note">Docker Unsupported</span></li>
-            <li><span class="plugin-name">Traceroute</span><span class="command">,t</span></li>
-            <li><span class="plugin-name">Speednext</span><span class="command">,s</span> <span class="note">PGP ≥ 1.5.0</span></li>
-            <li><span class="plugin-name">Speedtest</span><span class="command">,s</span> <span class="note">PGP &lt; 1.5.0</span></li>
-            <li><span class="plugin-name">Markdown</span><span class="command">,m</span></li>
-            <li><span class="plugin-name">Eatx</span><span class="command">,x</span> <span class="note">PGP ≥ 1.5.0</span></li>
+            <li><span class="plugin-name">Service</span> <span class="command">,service</span> <span class="note">Docker Unsupported</span></li>
+            <li><span class="plugin-name">Traceroute</span> <span class="command">,t</span></li>
+            <li><span class="plugin-name">Speednext</span> <span class="command">,s</span> <span class="note">PGP ≥ 1.5.0</span></li>
+            <li><span class="plugin-name">Speedtest</span> <span class="command">,s</span> <span class="note">PGP &lt; 1.5.0</span></li>
+            <li><span class="plugin-name">Markdown</span> <span class="command">,m</span></li>
+            <li><span class="plugin-name">Eatx</span> <span class="command">,x</span> <span class="note">PGP ≥ 1.5.0</span></li>
             <li>…</li>
         </ul>
     </section>
