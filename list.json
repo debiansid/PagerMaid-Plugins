@@ -21,6 +21,16 @@
             "des": "指令：,eat"
         },
         {
+            "name": "eatx",
+            "version": "1.345",
+            "section": "profile",
+            "maintainer": "midori",
+            "size": "25.3 kb",
+            "supported": true,
+            "des_short": "eat",
+            "des": "指令：,eat"
+        },
+        {
             "name": "abstract",
             "version": "1.02",
             "section": "chat",
