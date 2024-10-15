@@ -188,61 +188,61 @@ notifies = {
 }
 extensionConfig = {
     "jgg": {
-      "isSwap": true
+      "isSwap": True
     },
     "jm": {
-      "isSwap": true
+      "isSwap": True
     },
     "tui": {
-      "isSwap": true
+      "isSwap": True
     },
     "qx": {
-      "isSwap": true
+      "isSwap": True
     },
     "tx": {
-      "isSwap": true
+      "isSwap": True
     },
     "bb": {
-      "isSwap": true
+      "isSwap": True
     },
     "qm": {
-      "isSwap": true
+      "isSwap": True
     },
     "jy": {
-      "isSwap": true
+      "isSwap": True
     },
     "xf": {
-      "isSwap": true
+      "isSwap": True
     },
     "sn": {
-      "isSwap": true
+      "isSwap": True
     },
     "cb": {
-      "isSwap": true
+      "isSwap": True
     },
     "hq": {
-      "isSwap": true
+      "isSwap": True
     },
     "cs": {
-      "isSwap": true
+      "isSwap": True
     },
     "bbt": {
-      "isSwap": true
+      "isSwap": True
     },
     "cg": {
-      "isSwap": true
+      "isSwap": True
     },
     "xhs": {
-      "isSwap": true
+      "isSwap": True
     },
     "diaoy": {
-      "isSwap": true
+      "isSwap": True
     },
     "shuy": {
-      "isSwap": true
+      "isSwap": True
     },
     "shuy2": {
-      "isSwap": true
+      "isSwap": True
     }
 }
 max_number = len(positions)
