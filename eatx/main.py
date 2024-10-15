@@ -136,7 +136,7 @@ def mergeDict(d1, d2):
     return dict(dd)
 
 async def downloadFileByIds(ids, context):
-    idsStr = f',{",".join(ids)},'
+    idsStr = f',{".".join(ids)},'
     try:
         with open(configFilePath, "r", encoding="utf8") as cf:
             remoteConfigJson = json.load(cf)
@@ -173,7 +173,7 @@ async def downloadFileByIds(ids, context):
 @listener(
     is_plugin=True,
     outgoing=True,
-    command="x",
+    command="eat",
     description="生成一张 吃头像 图片\n"
     "可选：当第二个参数是数字时，读取预存的配置；\n\n"
     "当第二个参数是 . 开头时，头像旋转 180°，并且判断 . 后面是数字则读取对应的配置生成\n\n"
@@ -212,10 +212,15 @@ async def eat(client_: Client, context: Message):
                 except Exception:
                     return await context.edit(f"{lang('error_prefix')}{lang('profile_e_nou')}")
     target_user_id = user.id
-    if not user.photo:
-        return await context.edit("出错了呜呜呜 ~ 此用户无头像。")
+    photo_id = None
+    if isinstance(user, Chat) and user.photo:
+        photo_id = user.photo.big_file_id
+    elif hasattr(user, 'photo') and user.photo:
+        photo_id = user.photo.big_file_id
+    if not photo_id:
+        return await context.edit("出错了呜呜呜 ~ 此用户无头像或头像对您不可见。")
     photo = await client_.download_media(
-        user.photo.big_file_id,
+        photo_id,
         f"plugins{sep}eat{sep}" + str(target_user_id) + ".jpg",
     )
     reply_to = context.reply_to_message.id if context.reply_to_message else None
