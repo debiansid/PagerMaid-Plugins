@@ -220,64 +220,35 @@ async def eat(client_: Client, context: Message):
     if len(context.parameter) > 2:
         await context.edit("出错了呜呜呜 ~ 无效的参数。")
         return
+
     diu_round = False
     if context.from_user:
         from_user_id = context.from_user.id
     else:
         from_user_id = context.sender_chat.id
+
     if context.reply_to_message:
         if context.reply_to_message.from_user:
             user = context.reply_to_message.from_user
         else:
             user = context.reply_to_message.sender_chat
-        if not user:
-            return await context.edit(f"{lang('error_prefix')}{lang('profile_e_no')}")
     else:
         if len(context.parameter) == 1:
             user = context.parameter[0]
             if user.isdigit():
                 user = int(user)
         else:
-            if context.from_user:
-                user = context.from_user
-            else:
-                user = context.sender_chat
-        if context.entities is not None:
-            if context.entities[0].type == MessageEntityType.TEXT_MENTION:
-                user = context.entities[0].user
-            elif context.entities[0].type == MessageEntityType.PHONE_NUMBER:
-                user = int(context.parameter[0])
-            elif context.entities[0].type == MessageEntityType.BOT_COMMAND:
-                if context.from_user:
-                    user = context.from_user
-                else:
-                    user = context.sender_chat
-            else:
-                return await context.edit(f"{lang('error_prefix')}{lang('arg_error')}")
-        if not (isinstance(user, User) or isinstance(user, Chat)):
-            if user[:1] in [".", "/", "-", "!"]:
-                if context.from_user:
-                    user = context.from_user
-                else:
-                    user = context.sender_chat
+            user = context.from_user if context.from_user else context.sender_chat
+
+        if isinstance(user, str):
+            if user.startswith(".") or user.startswith("/") or user.startswith("-") or user.startswith("!"):
+                user = context.from_user if context.from_user else context.sender_chat
             else:
                 try:
-                    try:
-                        user = await client_.get_users(user)
-                    except IndexError:
-                        user = await client_.get_chat(user)  # noqa
-                except (UsernameNotOccupied, UsernameInvalid):
-                    return await context.edit(
-                        f"{lang('error_prefix')}{lang('profile_e_nou')}"
-                    )
-                except OverflowError:
-                    return await context.edit(
-                        f"{lang('error_prefix')}{lang('profile_e_long')}"
-                    )
-                except Exception as exception:
-                    return await context.edit(
-                        f"{lang('error_prefix')}{lang('profile_e_nof')}"
-                    )
+                    user = await client_.get_users(user)
+                except Exception:
+                    return await context.edit(f"{lang('error_prefix')}{lang('profile_e_nou')}")
+
     target_user_id = user.id
     if not user.photo:
         return await context.edit("出错了呜呜呜 ~ 此用户无头像。")
