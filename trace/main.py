@@ -1,7 +1,12 @@
 from pagermaid.enums import Message
 from pagermaid.listener import listener
 from pagermaid.utils import execute
+import os
 import re
+import platform
+import requests
+
+BESTTRACE_PATH = "/var/lib/pagermaid/plugins/besttrace"
 
 @listener(
     is_plugin=False,
@@ -12,33 +17,61 @@ import re
 )
 async def trace(message: Message):
     """Use besttrace to perform network tracing."""
+
     def extract_ip(text):
         ip_pattern = re.compile(r"(?:\d{1,3}\.){3}\d{1,3}")
         match = ip_pattern.search(text)
         return match.group(0) if match else None
 
+    def detect_architecture():
+        """Detect system architecture and download the appropriate besttrace binary."""
+        arch = platform.machine()
+        if arch == "x86_64":
+            url = "https://raw.githubusercontent.com/midori01/PagerMaid-Plugins/v2/trace/besttraceamd"
+        elif "arm" in arch:
+            url = "https://raw.githubusercontent.com/midori01/PagerMaid-Plugins/v2/trace/besttracearm"
+        else:
+            raise Exception("Unsupported architecture")
+
+        # Download the binary if not already present
+        if not os.path.exists(BESTTRACE_PATH):
+            try:
+                response = requests.get(url)
+                with open(BESTTRACE_PATH, "wb") as f:
+                    f.write(response.content)
+                os.chmod(BESTTRACE_PATH, 0o755)  # Make the file executable
+            except Exception as e:
+                raise Exception(f"Error downloading besttrace: {str(e)}")
+
+    # Detect and download besttrace binary if needed
+    try:
+        detect_architecture()
+    except Exception as e:
+        await message.edit(f"Error: {str(e)}")
+        return
+
     target = message.arguments
 
     if not target and message.reply_to_message:
         target = extract_ip(message.reply_to_message.text or "")
-    
+
     if not target:
         await message.edit("Error: No target specified or no IP found in the replied message.")
         return
-    
-    command = f"besttrace -g cn -q 1 {target}"
-    
+
+    command = f"{BESTTRACE_PATH} -g cn -q 1 {target}"
+
     try:
         result = await execute(command)
     except Exception as e:
         await message.edit(f"Error executing command: {str(e)}")
         return
-    
+
     if result:
         result_lines = result.splitlines()
         if len(result_lines) > 1:
             result = "\n".join(result_lines[1:])
-        
+
         title = f"**Traceroute to {target}**"
         final_result = f"{title}\n```\n{result}\n```"
         await message.edit(final_result)
