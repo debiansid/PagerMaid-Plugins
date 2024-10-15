@@ -214,12 +214,8 @@ async def eat(client_: Client, context: Message):
     target_user_id = user.id
     if not user.photo:
         return await context.edit("出错了呜呜呜 ~ 此用户无头像。")
-    if isinstance(user, Chat) and user.photo:
-        photo_id = user.photo.big_file_id
-    else:
-        photo_id = user.photo.big_file_id
     photo = await client_.download_media(
-        photo_id,
+        user.photo.big_file_id,
         f"plugins{sep}eat{sep}" + str(target_user_id) + ".jpg",
     )
     reply_to = context.reply_to_message.id if context.reply_to_message else None
@@ -355,6 +351,7 @@ async def eat(client_: Client, context: Message):
                         number = number[1:]
         except:
             number = randint(1, max_number)
+
         if exists(configFilePath):
             if await loadConfigFile(context) != 0:
                 await context.edit(f"加载配置文件异常，请确认从远程下载的配置文件格式是否正确")
