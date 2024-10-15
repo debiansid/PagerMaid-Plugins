@@ -82,6 +82,94 @@ async def eat_it(context, user, base, mask, photo, number, layer=0):
         )
     return base
 
+async def updateConfig(context):
+    if configFileRemoteUrl := sqlite.get(configFileRemoteUrlKey, ""):
+        if downloadFileFromUrl(configFileRemoteUrl, configFilePath) == 0:
+            return await loadConfigFile(context, True)
+        sqlite[configFileRemoteUrlKey] = configFileRemoteUrl
+        return -1
+    return 0
+
+async def downloadFileFromUrl(url, filepath):
+    try:
+        re = await client.get(url)
+        with open(filepath, "wb") as ms:
+            ms.write(re.content)
+    except:
+        return -1
+    return 0
+
+async def loadConfigFile(context, forceDownload=False):
+    global positions, notifyStrArr, extensionConfig
+    try:
+        with open(configFilePath, "r", encoding="utf8") as cf:
+            remoteConfigJson = json.load(cf)
+            positionsStr = json.dumps(remoteConfigJson["positions"])
+            data = json.loads(positionsStr)
+            positions = mergeDict(positions, data)
+            data = json.loads(json.dumps(remoteConfigJson["notifies"]))
+            notifyStrArr = mergeDict(notifyStrArr, data)
+            try:
+                data = json.loads(json.dumps(remoteConfigJson["extensionConfig"]))
+                extensionConfig = mergeDict(extensionConfig, data)
+            except:
+                pass
+            data = json.loads(json.dumps(remoteConfigJson["needDownloadFileList"]))
+            for file_url in data:
+                try:
+                    fsplit = file_url.split("/")
+                    filePath = f"plugins{sep}eat{sep}{fsplit[len(fsplit) - 1]}"
+                    if not exists(filePath) or forceDownload:
+                        await downloadFileFromUrl(file_url, filePath)
+                except:
+                    await context.edit(f"下载文件异常，url：{file_url}")
+                    return -1
+    except:
+        return -1
+    return 0
+
+def mergeDict(d1, d2):
+    dd = defaultdict(list)
+    for d in (d1, d2):
+        for key, value in d.items():
+            dd[key] = value
+    return dict(dd)
+
+async def downloadFileByIds(ids, context):
+    idsStr = f',{".".join(ids)},'
+    try:
+        with open(configFilePath, "r", encoding="utf8") as cf:
+            remoteConfigJson = json.load(cf)
+            data = json.loads(json.dumps(remoteConfigJson["needDownloadFileList"]))
+            sucSet = set()
+            failSet = set()
+            for file_url in data:
+                try:
+                    fsplit = file_url.split("/")
+                    fileFullName = fsplit[len(fsplit) - 1]
+                    fileName = (
+                        fileFullName.split(".")[0]
+                        .replace("eat", "")
+                        .replace("mask", "")
+                    )
+                    if f",{fileName}," in idsStr:
+                        filePath = f"plugins{sep}eat{sep}{fileFullName}"
+                        if (await downloadFileFromUrl(file_url, filePath)) == 0:
+                            sucSet.add(fileName)
+                        else:
+                            failSet.add(fileName)
+                except:
+                    failSet.add(fileName)
+                    await context.edit(f"下载文件异常，url：{file_url}")
+            notifyStr = "更新模版完成"
+            if sucSet:
+                notifyStr = f'{notifyStr}\n成功模版如下：{"，".join(sucSet)}'
+            if failSet:
+                notifyStr = f'{notifyStr}\n失败模版如下：{"，".join(failSet)}'
+            await context.edit(notifyStr)
+    except:
+        await context.edit("更新下载模版图片失败，请确认配置文件是否正确")
+
 @listener(
     is_plugin=True,
     outgoing=True,
@@ -129,10 +217,8 @@ async def eat(client_: Client, context: Message):
         photo_id = user.photo.big_file_id
     elif hasattr(user, 'photo') and user.photo:
         photo_id = user.photo.big_file_id
-
     if not photo_id:
         return await context.edit("出错了呜呜呜 ~ 此用户无头像或头像对您不可见。")
-
     photo = await client_.download_media(
         photo_id,
         f"plugins{sep}eat{sep}" + str(target_user_id) + ".jpg",
