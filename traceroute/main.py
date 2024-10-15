@@ -16,7 +16,6 @@ BESTTRACE_PATH = "/var/lib/pagermaid/plugins/besttrace"
     parameters="Provide the target to trace."
 )
 async def trace(message: Message):
-    """Use besttrace to perform network tracing."""
 
     def extract_ip(text):
         ip_pattern = re.compile(r"(?:\d{1,3}\.){3}\d{1,3}")
@@ -26,10 +25,8 @@ async def trace(message: Message):
     def detect_architecture():
         """Detect system architecture and download the appropriate besttrace binary."""
         arch = platform.machine()
-        # Debugging line to check the architecture
         print(f"Detected architecture: {arch}")
 
-        # Add more architectures as needed
         if arch in ["x86_64"]:
             url = "https://raw.githubusercontent.com/midori01/PagerMaid-Plugins/v2/traceroute/besttraceamd"
         elif arch in ["aarch64"]:
@@ -37,15 +34,13 @@ async def trace(message: Message):
         else:
             raise Exception(f"Unsupported architecture: {arch}")
 
-        # Download the binary if not already present
         if not os.path.exists(BESTTRACE_PATH):
             try:
                 urllib.request.urlretrieve(url, BESTTRACE_PATH)
-                os.chmod(BESTTRACE_PATH, 0o755)  # Make the file executable
+                os.chmod(BESTTRACE_PATH, 0o755)
             except Exception as e:
                 raise Exception(f"Error downloading besttrace: {str(e)}")
 
-    # Detect and download besttrace binary if needed
     try:
         detect_architecture()
     except Exception as e:
