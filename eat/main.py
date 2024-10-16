@@ -276,7 +276,7 @@ async def eat(client_: Client, context: Message):
                         if await loadConfigFile(context) != 0:
                             await context.edit("加载配置文件异常")
                             return
-                        await context.edit("默认配置文件下载并加载成功。")
+                        await context.edit("默认配置文件下载并加载成功")
                         return
                     if p2.startswith("http"):
                         if (await downloadFileFromUrl(p2, configFilePath)) != 0:
