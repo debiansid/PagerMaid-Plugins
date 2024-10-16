@@ -222,11 +222,11 @@ async def eat(client_: Client, context: Message):
     if exists(f"plugins{sep}eat{sep}" + str(target_user_id) + ".jpg"):
         for num in range(1, max_number + 1):
             if not exists(f"plugins{sep}eat{sep}eat" + str(num) + ".png"):
-                re = await client.get(f"{git_source}eat/eat" + str(num) + ".png")
+                re = await client_.get(f"{git_source}eat/eat" + str(num) + ".png")
                 with open(f"plugins{sep}eat{sep}eat" + str(num) + ".png", "wb") as bg:
                     bg.write(re.content)
             if not exists(f"plugins{sep}eat{sep}mask" + str(num) + ".png"):
-                re = await client.get(f"{git_source}eat/mask" + str(num) + ".png")
+                re = await client_.get(f"{git_source}eat/mask" + str(num) + ".png")
                 with open(f"plugins{sep}eat{sep}mask" + str(num) + ".png", "wb") as ms:
                     ms.write(re.content)
         number = randint(1, max_number)
@@ -280,36 +280,27 @@ async def eat(client_: Client, context: Message):
                                 splitStr = ","
                             ids = p2.split(splitStr)
                             if len(ids) > 0:
-                                configFileRemoteUrl = sqlite.get(
-                                    configFileRemoteUrlKey, ""
-                                )
+                                configFileRemoteUrl = sqlite.get(configFileRemoteUrlKey, "")
                                 if configFileRemoteUrl:
-                                    if (
-                                        await downloadFileFromUrl(
-                                            configFileRemoteUrl, configFilePath
-                                        )
-                                    ) != 0:
+                                    if (await downloadFileFromUrl(configFileRemoteUrl, configFilePath)) != 0:
                                         await context.edit(f"下载配置文件异常，请确认url是否正确")
                                         return
                                     else:
                                         if await loadConfigFile(context) != 0:
-                                            await context.edit(
-                                                f"加载配置文件异常，请确认从远程下载的配置文件格式是否正确"
-                                            )
+                                            await context.edit(f"加载配置文件异常，请确认从远程下载的配置文件格式是否正确")
                                             return
                                         else:
                                             await downloadFileByIds(ids, context)
-                                else:
-                                    await context.edit(f"你没有订阅远程配置文件，更新个🔨")
                     else:
-                        if await updateConfig(context) != 0:
-                            await context.edit(
-                                f"更新配置文件异常，请确认是否订阅远程配置文件，或从远程下载的配置文件格式是否正确"
-                            )
+                        default_url = "https://repo.lvlv.lv/eat/config.json"
+                        if (await downloadFileFromUrl(default_url, configFilePath)) != 0:
+                            await context.edit(f"从默认地址下载配置文件失败")
+                            return
+                        if await loadConfigFile(context, True) != 0:
+                            await context.edit(f"加载配置文件失败")
                             return
                         else:
-                            await context.edit(f"从远程更新配置文件成功")
-                    return
+                            await context.edit(f"从默认地址更新并加载配置文件成功")
                 elif p1[0] == "！" or p1[0] == "!":
                     if exists(configFilePath):
                         if await loadConfigFile(context) != 0:
@@ -351,7 +342,6 @@ async def eat(client_: Client, context: Message):
                         number = number[1:]
         except:
             number = randint(1, max_number)
-
         if exists(configFilePath):
             if await loadConfigFile(context) != 0:
                 await context.edit(f"加载配置文件异常，请确认从远程下载的配置文件格式是否正确")
