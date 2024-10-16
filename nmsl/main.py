@@ -1,3 +1,4 @@
+import asyncio
 from pyrogram.errors import ChatAdminRequired
 from pagermaid.listener import listener
 from pagermaid.services import bot
@@ -13,7 +14,7 @@ async def ban_user_and_notify(chat_id: int, user_id: int, message: Message, user
 
 @listener(
     command="nmsl",
-    description="",
+    description="ban user",
     need_admin=True,
     groups_only=True,
 )
@@ -22,7 +23,8 @@ async def super_ban(message: Message):
 
     if not reply or not reply.from_user:
         await message.edit("必须回复目标消息")
-        return await message.delete(10)
+        await asyncio.sleep(10)
+        return await message.delete()
 
     uid = reply.from_user.id
     user_mention = reply.from_user.mention
@@ -35,4 +37,5 @@ async def super_ban(message: Message):
     except Exception as e:
         await message.edit(f"出现错误：{e}")
     finally:
-        await message.delete(10)
+        await asyncio.sleep(10)
+        await message.delete()
