@@ -14,7 +14,6 @@ async def ban_user_and_notify(chat_id: int, user_id: int, message: Message, user
 
 @listener(
     command="nmsl",
-    description="ban user",
     need_admin=True,
     groups_only=True,
 )
