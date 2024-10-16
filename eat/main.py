@@ -183,13 +183,6 @@ async def downloadFileByIds(ids, context):
     parameters="[username/uid] [随意内容]",
 )
 async def eat(client_: Client, context: Message):
-    if not exists(configFilePath):
-        await context.edit("配置文件不存在，正在从远程更新...")
-        if (await downloadFileFromUrl("https://repo.lvlv.lv/eat/config.json", configFilePath)) != 0:
-            return await context.edit("更新配置文件失败，请检查URL是否正确")
-        else:
-            await loadConfigFile(context, True)
-
     if len(context.parameter) > 2:
         await context.edit("出错了呜呜呜 ~ 无效的参数。")
         return
