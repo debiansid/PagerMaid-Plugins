@@ -222,11 +222,11 @@ async def eat(client_: Client, context: Message):
     if exists(f"plugins{sep}eat{sep}" + str(target_user_id) + ".jpg"):
         for num in range(1, max_number + 1):
             if not exists(f"plugins{sep}eat{sep}eat" + str(num) + ".png"):
-                re = await client_.get(f"{git_source}eat/eat" + str(num) + ".png")
+                re = await client.get(f"{git_source}eat/eat" + str(num) + ".png")
                 with open(f"plugins{sep}eat{sep}eat" + str(num) + ".png", "wb") as bg:
                     bg.write(re.content)
             if not exists(f"plugins{sep}eat{sep}mask" + str(num) + ".png"):
-                re = await client_.get(f"{git_source}eat/mask" + str(num) + ".png")
+                re = await client.get(f"{git_source}eat/mask" + str(num) + ".png")
                 with open(f"plugins{sep}eat{sep}mask" + str(num) + ".png", "wb") as ms:
                     ms.write(re.content)
         number = randint(1, max_number)
