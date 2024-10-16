@@ -407,7 +407,7 @@
             "maintainer": "xtaodada",
             "size": "3.991 kb",
             "supported": true,
-            "des_short": "测速。",
+            "des_short": "测速 (Ptyhon)",
             "des": "测速。\n指令：,speedtest"
         },
         {
@@ -1207,7 +1207,7 @@
             "maintainer": "xtaodada",
             "size": "4.501 kb",
             "supported": true,
-            "des_short": "speedtest_go 测速",
+            "des_short": "测速 (Golang)",
             "des": "测速。\n指令：,speedtest_go"
         }
     ]
