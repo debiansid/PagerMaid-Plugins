@@ -13,8 +13,8 @@ async def ban_user(chat_id: int, user_id: int):
 
 
 @listener(
-    command="sb",
-    description=lang("sb_des"),
+    command="nmsl",
+    description="ban user",
     need_admin=True,
     groups_only=True,
 )
