@@ -255,61 +255,62 @@ async def eat(client_: Client, context: Message):
                         del sqlite["eat.default-config"]
                         await context.edit(f"已经清空默认配置")
                     return
-                elif p1[0] == "/":
-                    await context.edit(f"正在更新远程配置文件")
-                    if len(p1) > 1:
-                        p2 = "".join(p1[1:])
-                        if p2 == "delete":
-                            del sqlite[configFileRemoteUrlKey]
-                            await context.edit(f"已清空远程配置文件url")
-                            return
-                        if p2.startswith("http"):
-                            if (await downloadFileFromUrl(p2, configFilePath)) != 0:
-                                await context.edit(f"下载配置文件异常，请确认url是否正确")
-                                return
-                            else:
-                                sqlite[configFileRemoteUrlKey] = p2
-                                if await loadConfigFile(context, True) != 0:
-                                    await context.edit(f"加载配置文件异常，请确认从远程下载的配置文件格式是否正确")
-                                    return
-                                else:
-                                    await context.edit(f"下载并加载配置文件成功")
-                        else:
-                            splitStr = "，"
-                            if "," in p2:
-                                splitStr = ","
-                            ids = p2.split(splitStr)
-                            if len(ids) > 0:
-                                configFileRemoteUrl = sqlite.get(
-                                    configFileRemoteUrlKey, ""
-                                )
-                                if configFileRemoteUrl:
-                                    if (
-                                        await downloadFileFromUrl(
-                                            configFileRemoteUrl, configFilePath
-                                        )
-                                    ) != 0:
-                                        await context.edit(f"下载配置文件异常，请确认url是否正确")
-                                        return
-                                    else:
-                                        if await loadConfigFile(context) != 0:
-                                            await context.edit(
-                                                f"加载配置文件异常，请确认从远程下载的配置文件格式是否正确"
-                                            )
-                                            return
-                                        else:
-                                            await downloadFileByIds(ids, context)
-                                else:
-                                    await context.edit(f"你没有订阅远程配置文件，更新个🔨")
-                    else:
-                        if await updateConfig(context) != 0:
-                            await context.edit(
-                                f"更新配置文件异常，请确认是否订阅远程配置文件，或从远程下载的配置文件格式是否正确"
-                            )
-                            return
-                        else:
-                            await context.edit(f"从远程更新配置文件成功")
+elif p1[0] == "/":
+    await context.edit(f"正在更新远程配置文件")
+    if len(p1) > 1:
+        p2 = "".join(p1[1:])
+        if p2 == "delete":
+            del sqlite[configFileRemoteUrlKey]
+            await context.edit(f"已清空远程配置文件 URL")
+            return
+        elif p2 == "default":
+            await context.edit("正在下载默认配置文件...")
+            url = "https://repo.lvlv.lv/eat/config.json"
+            if await downloadFileFromUrl(url, configFilePath) != 0:
+                await context.edit("下载默认配置文件失败")
+                return
+            if await loadConfigFile(context) != 0:
+                await context.edit("加载配置文件异常")
+                return
+            await context.edit("默认配置文件下载并加载成功。")
+            return
+        if p2.startswith("http"):
+            if (await downloadFileFromUrl(p2, configFilePath)) != 0:
+                await context.edit(f"下载配置文件异常，请确认 URL 是否正确")
+                return
+            else:
+                sqlite[configFileRemoteUrlKey] = p2
+                if await loadConfigFile(context, True) != 0:
+                    await context.edit(f"加载配置文件异常，请确认从远程下载的配置文件格式是否正确")
                     return
+                else:
+                    await context.edit(f"下载并加载配置文件成功")
+        else:
+            splitStr = "，"
+            if "," in p2:
+                splitStr = ","
+            ids = p2.split(splitStr)
+            if len(ids) > 0:
+                configFileRemoteUrl = sqlite.get(configFileRemoteUrlKey, "")
+                if configFileRemoteUrl:
+                    if (await downloadFileFromUrl(configFileRemoteUrl, configFilePath)) != 0:
+                        await context.edit(f"下载配置文件异常，请确认 URL 是否正确")
+                        return
+                    else:
+                        if await loadConfigFile(context) != 0:
+                            await context.edit(f"加载配置文件异常，请确认从远程下载的配置文件格式是否正确")
+                            return
+                        else:
+                            await downloadFileByIds(ids, context)
+                else:
+                    await context.edit(f"你没有订阅远程配置文件，更新个🔨")
+    else:
+        if await updateConfig(context) != 0:
+            await context.edit(f"更新配置文件异常，请确认是否订阅远程配置文件，或从远程下载的配置文件格式是否正确")
+            return
+        else:
+            await context.edit(f"从远程更新配置文件成功")
+    return
                 elif p1[0] == "！" or p1[0] == "!":
                     if exists(configFilePath):
                         if await loadConfigFile(context) != 0:
