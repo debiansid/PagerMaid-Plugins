@@ -4,7 +4,6 @@ from pagermaid.utils import execute
 
 @listener(is_plugin=False, command="service", description="Show service details.")
 async def sysstatus(message):
-    """Show service details."""
     
     args = message.arguments.strip().split()
     service_name = args[0] if args else "pagermaid"
