@@ -81,6 +81,16 @@
             "des": "指令：,x"
         },
         {
+            "name": "nmsl",
+            "version": "1.0",
+            "section": "custom",
+            "maintainer": "midori",
+            "size": "1.5 kb",
+            "supported": true,
+            "des_short": "封禁用户",
+            "des": "指令：,nmsl"
+        },
+        {
             "name": "xtao-some",
             "version": "1.051",
             "section": "daily",
