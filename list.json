@@ -1,19 +1,59 @@
 {
     "list": [
         {
-            "name": "xtao-some",
-            "version": "1.051",
-            "section": "daily",
-            "maintainer": "xtaodada",
-            "size": "2.966 kb",
+            "name": "speednext",
+            "version": "1.016",
+            "section": "custom",
+            "maintainer": "midori",
+            "size": "8.6 kb",
             "supported": true,
-            "des_short": "一大堆便民功能。",
-            "des": "超多功能 例如 ,ip"
+            "des_short": "测速 (PGP≥1.5.0)",
+            "des": "指令：,s"
+        },
+        {
+            "name": "speedtest",
+            "version": "1.016",
+            "section": "custom",
+            "maintainer": "midori",
+            "size": "8.7 kb",
+            "supported": true,
+            "des_short": "测速 (PGP<1.5.0)",
+            "des": "指令：,s"
+        },
+        {
+            "name": "service",
+            "version": "1.012",
+            "section": "custom",
+            "maintainer": "midori",
+            "size": "1.7 kb",
+            "supported": true,
+            "des_short": "查看服务状态 (不支持 Docker)",
+            "des": "指令：,service"
+        },
+        {
+            "name": "traceroute",
+            "version": "1.104",
+            "section": "custom",
+            "maintainer": "midori",
+            "size": "1.3 kb",
+            "supported": true,
+            "des_short": "路由追踪",
+            "des": "指令：,t"
+        },
+        {
+            "name": "markdown",
+            "version": "1.0",
+            "section": "custom",
+            "maintainer": "midori",
+            "size": "1.6 kb",
+            "supported": true,
+            "des_short": "Markdown",
+            "des": "指令：,m"
         },
         {
             "name": "eat",
             "version": "1.355",
-            "section": "profile",
+            "section": "custom",
             "maintainer": "midori",
             "size": "25.3 kb",
             "supported": true,
@@ -23,7 +63,7 @@
         {
             "name": "eatx",
             "version": "1.355",
-            "section": "profile",
+            "section": "custom",
             "maintainer": "midori",
             "size": "25.3 kb",
             "supported": true,
@@ -33,12 +73,22 @@
         {
             "name": "eatc",
             "version": "1.355",
-            "section": "profile",
+            "section": "custom",
             "maintainer": "midori",
             "size": "25.3 kb",
             "supported": true,
             "des_short": "eat (PGP<1.5.0)",
             "des": "指令：,x"
+        },
+        {
+            "name": "xtao-some",
+            "version": "1.051",
+            "section": "daily",
+            "maintainer": "xtaodada",
+            "size": "2.966 kb",
+            "supported": true,
+            "des_short": "一大堆便民功能。",
+            "des": "超多功能 例如 ,ip"
         },
         {
             "name": "abstract",
@@ -1159,56 +1209,6 @@
             "supported": true,
             "des_short": "speedtest_go 测速",
             "des": "测速。\n指令：,speedtest_go"
-        },
-        {
-            "name": "speednext",
-            "version": "1.016",
-            "section": "chat",
-            "maintainer": "midori",
-            "size": "8.6 kb",
-            "supported": true,
-            "des_short": "speednext",
-            "des": "指令：,s"
-        },
-        {
-            "name": "speedtest",
-            "version": "1.016",
-            "section": "chat",
-            "maintainer": "midori",
-            "size": "8.7 kb",
-            "supported": true,
-            "des_short": "speedtest",
-            "des": "指令：,s"
-        },
-        {
-            "name": "service",
-            "version": "1.012",
-            "section": "chat",
-            "maintainer": "midori",
-            "size": "1.7 kb",
-            "supported": true,
-            "des_short": "service",
-            "des": "指令：,service"
-        },
-        {
-            "name": "traceroute",
-            "version": "1.104",
-            "section": "chat",
-            "maintainer": "midori",
-            "size": "1.3 kb",
-            "supported": true,
-            "des_short": "traceroute",
-            "des": "指令：,t"
-        },
-        {
-            "name": "markdown",
-            "version": "1.0",
-            "section": "chat",
-            "maintainer": "midori",
-            "size": "1.6 kb",
-            "supported": true,
-            "des_short": "markdown",
-            "des": "指令：,m"
         }
     ]
 }
