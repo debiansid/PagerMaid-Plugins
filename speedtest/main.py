@@ -146,7 +146,7 @@ async def run_speedtest(request: AsyncClient, message: Message):
         f"> **⚡️SPEEDTEST by OOKLA [@{cc_code}{cc_flag}]({cc_link})**\n"
         f"`Name``  ``{result['isp']}`` `[{as_info}](https://bgp.tools/{as_info})\n"
         f"`Node``  ``{result['server']['id']}` - `{result['server']['name']}` - `{result['server']['location']}`\n"
-        f"`Conn``  ``{'IPv6' if ':' in result['interface']['externalIp'] else 'IPv4'}` - `{result['interface']['name']}` - `MTU {mtu}`\n"
+        f"`Conn``  ``{'IPv6' if ':' in result['interface']['externalIp'] else 'IPv4'}` - `{result['interface']['name']}` - `MTU` `{mtu}`\n"
         f"`Ping``  `⇔`{result['ping']['latency']}ms`` `±`{result['ping']['jitter']}ms`\n"
         f"`Rate``  `↓`{await unit_convert(result['download']['bandwidth'])}`` `↑`{await unit_convert(result['upload']['bandwidth'])}`\n"
         f"`Data``  `↓`{await unit_convert(result['download']['bytes'], is_bytes=True)}`` `↑`{await unit_convert(result['upload']['bytes'], is_bytes=True)}`\n"
