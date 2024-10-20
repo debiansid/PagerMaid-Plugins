@@ -12,7 +12,7 @@
         },
         {
             "name": "speedtest",
-            "version": "1.016",
+            "version": "1.017",
             "section": "custom",
             "maintainer": "midori",
             "size": "8.7 kb",
