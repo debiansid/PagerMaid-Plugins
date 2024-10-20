@@ -78,9 +78,11 @@ def get_interface_traffic(interface):
             rx_bytes = int(f.read())
         with open(f"/sys/class/net/{interface}/statistics/tx_bytes", "r") as f:
             tx_bytes = int(f.read())
-        return rx_bytes, tx_bytes
+        with open(f"/sys/class/net/{interface}/mtu", "r") as f:
+            mtu = int(f.read().strip())
+        return rx_bytes, tx_bytes, mtu
     except Exception as e:
-        return 0, 0
+        return 0, 0, ''
 
 async def start_speedtest(command):
     proc = await create_subprocess_shell(command, stdout=PIPE, stderr=PIPE, stdin=PIPE)
@@ -137,13 +139,13 @@ async def run_speedtest(request: AsyncClient, message: Message):
         return lang('speedtest_ConnectFailure'), None
         
     as_info, cc_name, cc_code, cc_flag, cc_link = await get_ip_api(request, result['interface']['externalIp'])
-    rx_bytes, tx_bytes = get_interface_traffic(result['interface']['name'])
+    rx_bytes, tx_bytes, mtu = get_interface_traffic(result['interface']['name'])
     
     des = (
         f"> **⚡️SPEEDTEST by OOKLA [@{cc_code}{cc_flag}]({cc_link})**\n"
         f"`Name``  ``{result['isp']}`` `[{as_info}](https://bgp.tools/{as_info})\n"
         f"`Node``  ``{result['server']['id']}` - `{result['server']['name']}` - `{result['server']['location']}`\n"
-        f"`Conn``  ``Multi` - `{'IPv6' if ':' in result['interface']['externalIp'] else 'IPv4'}` - `{result['interface']['name']}`\n"
+        f"`Conn``  ``{'IPv6' if ':' in result['interface']['externalIp'] else 'IPv4'}` - `{result['interface']['name']}` - `MTU` `{mtu}`\n"
         f"`Ping``  `⇔`{result['ping']['latency']}ms`` `±`{result['ping']['jitter']}ms`\n"
         f"`Rate``  `↓`{await unit_convert(result['download']['bandwidth'])}`` `↑`{await unit_convert(result['upload']['bandwidth'])}`\n"
         f"`Data``  `↓`{await unit_convert(result['download']['bytes'], is_bytes=True)}`` `↑`{await unit_convert(result['upload']['bytes'], is_bytes=True)}`\n"
