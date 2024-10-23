@@ -1,6 +1,5 @@
 import traceback
 from datetime import datetime, timedelta, timezone
-import contextlib
 
 from pagermaid.enums import Client, Message
 from pagermaid.listener import listener
