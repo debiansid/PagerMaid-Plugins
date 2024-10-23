@@ -81,16 +81,6 @@
             "des": "指令：,x"
         },
         {
-            "name": "autochangenamex",
-            "version": "1.01",
-            "section": "custom",
-            "maintainer": "midori",
-            "size": "3.58 kb",
-            "supported": true,
-            "des_short": "自动改名",
-            "des": "指令：,autochangenamex"
-        },
-        {
             "name": "nmsl",
             "version": "1.03",
             "section": "custom",
