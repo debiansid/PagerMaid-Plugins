@@ -1,7 +1,7 @@
 import traceback
 from datetime import datetime, timedelta, timezone
 
-from pagermaid.enums import Client, Message
+from pagermaid.enums import Message
 from pagermaid.listener import listener
 from pagermaid.dependence import scheduler
 from pagermaid.services import bot, sqlite
