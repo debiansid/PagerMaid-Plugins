@@ -23,7 +23,7 @@ all_time_emoji_name = [
 time_emoji_symb = [emojize(f":{s}:", language="alias") for s in all_time_emoji_name]
 
 
-def get_timezone_settings() -> Tuple[int, str]:
+def get_timezone_settings():
     return sqlite.get("autochangenamex.timezone", 9), sqlite.get("autochangenamex.name_type", "last_name")
 
 
