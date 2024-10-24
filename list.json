@@ -91,6 +91,16 @@
             "des": "指令：,nmsl"
         },
         {
+            "name": "autochangenamex",
+            "version": "1.0",
+            "section": "custom",
+            "maintainer": "midori",
+            "size": "1.0 kb",
+            "supported": true,
+            "des_short": "",
+            "des": ""
+        },
+        {
             "name": "xtao-some",
             "version": "1.051",
             "section": "daily",
