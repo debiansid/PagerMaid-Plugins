@@ -56,11 +56,11 @@ async def change_name_auto():
         hour, minu, seco, p, abbwn = time_cur.split(":")
         shift = 1 if int(minu) > 30 else 0
         hsym = time_emoji_symb[(int(hour) % 12) * 2 + shift]
-        _last_name = f"{hsym} {hour}:{minu} UTC+9"
-        await bot.update_profile(last_name=_last_name)
+        _first_name = f"ミドリ♪ {hsym} {hour}:{minu} UTC+9"
+        await bot.update_profile(first_name=_first_name)
         me = await bot.get_me()
-        if me.last_name != _last_name:
-            raise Exception("修改 last_name 失败")
+        if me.first_name != _first_name:
+            raise Exception("修改 first_name 失败")
     except Exception as e:
         trac = "\n".join(traceback.format_exception(e))
         await logs.info(f"更新失败! \n{trac}")
