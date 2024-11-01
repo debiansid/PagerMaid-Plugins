@@ -56,7 +56,7 @@ async def change_name_auto():
         hour, minu, seco, p, abbwn = time_cur.split(":")
         shift = 1 if int(minu) > 30 else 0
         hsym = time_emoji_symb[(int(hour) % 12) * 2 + shift]
-        _first_name = f"ミドリ♪ {hsym} {hour}:{minu} UTC+9"
+        _first_name = f"ミドリ♪ {hour}:{minu} UTC+9 {hsym}"
         await bot.update_profile(first_name=_first_name)
         me = await bot.get_me()
         if me.first_name != _first_name:
