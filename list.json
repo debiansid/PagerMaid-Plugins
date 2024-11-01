@@ -91,14 +91,44 @@
             "des": "指令：,nmsl"
         },
         {
+            "name": "autochangename",
+            "version": "1.203",
+            "section": "custom",
+            "maintainer": "midori",
+            "size": "1.718 kb",
+            "supported": true,
+            "des_short": "自动更新 first_name (みどり専用)",
+            "des": "自动更新 first_name (みどり専用)"
+        },
+        {
+            "name": "autochangename_ja",
+            "version": "1.0",
+            "section": "custom",
+            "maintainer": "midori",
+            "size": "1.718 kb",
+            "supported": true,
+            "des_short": "自动更新 last_name (ja_jp)",
+            "des": "自动更新 last_name (ja_jp)"
+        },
+        {
+            "name": "autochangename_zh",
+            "version": "1.0",
+            "section": "custom",
+            "maintainer": "midori",
+            "size": "1.718 kb",
+            "supported": true,
+            "des_short": "自动更新 last_name (zh_cn)",
+            "des": "自动更新 last_name (zh_cn)"
+        },
+        {
             "name": "autochangenamex",
             "version": "1.03",
             "section": "custom",
             "maintainer": "midori",
             "size": "1.0 kb",
             "supported": true,
-            "des_short": "",
-            "des": ""
+            "des_short": "自动更新 last_name (en_us)",
+            "des": "自动更新 last_name (en_us)"
         },
         {
             "name": "xtao-some",
@@ -289,16 +319,6 @@
             "supported": true,
             "des_short": "列出本群premium用户数量",
             "des": "列出本群premium用户数量(指令: ,premium)"
-        },
-        {
-            "name": "autochangename",
-            "version": "1.203",
-            "section": "custom",
-            "maintainer": "midori",
-            "size": "1.718 kb",
-            "supported": true,
-            "des_short": "自动更新 first_name 为时间等。",
-            "des": "每 30 秒自动更新 first_name 为时间等小玩意。"
         },
         {
             "name": "dc",
