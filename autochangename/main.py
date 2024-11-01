@@ -47,14 +47,10 @@ time_emoji_symb = [emojize(f":{s}:", language="alias") for s in all_time_emoji_n
 @scheduler.scheduled_job("cron", second=0, id="autochangename")
 async def change_name_auto():
     try:
-        time_cur = (
-            datetime.utcnow()
-            .replace(tzinfo=timezone.utc)
-            .astimezone(timezone(timedelta(hours=9)))
-            .strftime("%-I:%M:%S %p:%a")
-        )
-        hour, minu, seco, p, abbwn = time_cur.split(":")
-        period = "午前" if "AM" in p else "午後"
+        dt = datetime.utcnow().replace(tzinfo=timezone.utc).astimezone(timezone(timedelta(hours=9)))
+        hour = dt.strftime("%-I")
+        minu = dt.strftime("%M")
+        period = "午前" if dt.strftime("%p") == "AM" else "午後"
         shift = 1 if int(minu) > 30 else 0
         hsym = time_emoji_symb[(int(hour) % 12) * 2 + shift]
         _first_name = f"ミドリ♪ {period}{hour}:{minu} UTC+9 {hsym}"
