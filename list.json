@@ -292,8 +292,8 @@
         },
         {
             "name": "autochangename",
-            "version": "1.142",
-            "section": "profile",
+            "version": "1.143",
+            "section": "custom",
             "maintainer": "xtaodada、xiluo",
             "size": "1.718 kb",
             "supported": true,
