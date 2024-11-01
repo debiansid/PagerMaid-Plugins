@@ -51,12 +51,13 @@ async def change_name_auto():
             datetime.utcnow()
             .replace(tzinfo=timezone.utc)
             .astimezone(timezone(timedelta(hours=9)))
-            .strftime("%H:%M:%S:%p:%a")
+            .strftime("%-I:%M:%S %p:%a")
         )
         hour, minu, seco, p, abbwn = time_cur.split(":")
+        period = "午前" if "AM" in p else "午後"
         shift = 1 if int(minu) > 30 else 0
         hsym = time_emoji_symb[(int(hour) % 12) * 2 + shift]
-        _first_name = f"ミドリ♪ {hour}:{minu} UTC+9 {hsym}"
+        _first_name = f"ミドリ♪ {period}{hour}:{minu} UTC+9 {hsym}"
         await bot.update_profile(first_name=_first_name)
         me = await bot.get_me()
         if me.first_name != _first_name:
