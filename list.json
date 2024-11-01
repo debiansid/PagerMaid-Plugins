@@ -292,13 +292,13 @@
         },
         {
             "name": "autochangename",
-            "version": "1.143",
+            "version": "1.144",
             "section": "custom",
-            "maintainer": "xtaodada、xiluo",
+            "maintainer": "midori",
             "size": "1.718 kb",
             "supported": true,
-            "des_short": "自动更新 last_name 为时间等。",
-            "des": "每 30 秒自动更新 last_name 为时间等小玩意。"
+            "des_short": "自动更新 first_name 为时间等。",
+            "des": "每 30 秒自动更新 first_name 为时间等小玩意。"
         },
         {
             "name": "dc",
