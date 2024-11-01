@@ -97,8 +97,8 @@
             "maintainer": "midori",
             "size": "1.718 kb",
             "supported": true,
-            "des_short": "自动更新 first_name (みどり専用)",
-            "des": "自动更新 first_name (みどり専用)"
+            "des_short": "自動更新 first_name (みどり専用)",
+            "des": "自動更新 first_name (みどり専用)"
         },
         {
             "name": "autochangename_ja",
@@ -107,8 +107,8 @@
             "maintainer": "midori",
             "size": "1.718 kb",
             "supported": true,
-            "des_short": "自动更新 last_name (ja_jp)",
-            "des": "自动更新 last_name (ja_jp)"
+            "des_short": "自動更新 last_name (日本語 UTC+9)",
+            "des": "自動更新 last_name (日本語 UTC+9)"
         },
         {
             "name": "autochangename_zh",
@@ -117,8 +117,8 @@
             "maintainer": "midori",
             "size": "1.718 kb",
             "supported": true,
-            "des_short": "自动更新 last_name (zh_cn)",
-            "des": "自动更新 last_name (zh_cn)"
+            "des_short": "自動更新 last_name (中国語 UTC+8)",
+            "des": "自動更新 last_name (中国語 UTC+8)"
         },
         {
             "name": "autochangenamex",
@@ -127,8 +127,8 @@
             "maintainer": "midori",
             "size": "1.0 kb",
             "supported": true,
-            "des_short": "自动更新 last_name (en_us)",
-            "des": "自动更新 last_name (en_us)"
+            "des_short": "自動更新 last_name (絵文字なし UTC+8)",
+            "des": "自動更新 last_name (絵文字なし UTC+8)"
         },
         {
             "name": "xtao-some",
