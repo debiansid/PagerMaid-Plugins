@@ -50,13 +50,13 @@ async def change_name_auto():
         time_cur = (
             datetime.utcnow()
             .replace(tzinfo=timezone.utc)
-            .astimezone(timezone(timedelta(hours=8)))
+            .astimezone(timezone(timedelta(hours=9)))
             .strftime("%H:%M:%S:%p:%a")
         )
         hour, minu, seco, p, abbwn = time_cur.split(":")
         shift = 1 if int(minu) > 30 else 0
         hsym = time_emoji_symb[(int(hour) % 12) * 2 + shift]
-        _last_name = f"{hour}:{minu} {p} UTC+8 {hsym}"
+        _last_name = f"{hour}:{minu} UTC+9 {hsym}"
         await bot.update_profile(last_name=_last_name)
         me = await bot.get_me()
         if me.last_name != _last_name:
