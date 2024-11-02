@@ -22,7 +22,7 @@ async def google(message: Message):
     if not Config.SILENT:
         message = await message.edit(lang("google_processing"))
     results = ""
-    for i in mg.search(query=query, num=5):
+    for i in mg.search(query=query, num=5, language="zh-CN"):
         try:
             title = i["text"][:30] + "..."
             link = i["url"]

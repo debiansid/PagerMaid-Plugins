@@ -712,10 +712,10 @@
         },
         {
             "name": "google",
-            "version": "1.04",
+            "version": "1.05",
             "section": "chat",
             "maintainer": "xtaodada",
-            "size": "1.285 kb",
+            "size": "1.303 kb",
             "supported": true,
             "des_short": "google 谷歌搜索",
             "des": "google 谷歌搜索"
