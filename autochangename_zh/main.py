@@ -43,24 +43,20 @@ all_time_emoji_name = [
 time_emoji_symb = [emojize(f":{s}:", language="alias") for s in all_time_emoji_name]
 
 def get_time_period(hour):
-    if 0 <= hour < 3:
+    if 0 <= hour < 5:
         return "凌晨"
-    elif 3 <= hour < 6:
-        return "黎明"
-    elif 6 <= hour < 9:
+    elif 5 <= hour < 8:
         return "早晨"
-    elif 9 <= hour < 11:
+    elif 8 <= hour < 11:
         return "上午"
     elif 11 <= hour < 13:
         return "中午"
-    elif 13 <= hour < 15:
+    elif 13 <= hour < 17:
         return "下午"
-    elif 15 <= hour < 18:
+    elif 17 <= hour < 19:
         return "傍晚"
-    elif 18 <= hour < 21:
-        return "晚上"
     else:
-        return "深夜"
+        return "晚上"
 
 @scheduler.scheduled_job("cron", second=0, id="autochangename")
 async def change_name_auto():
