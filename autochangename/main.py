@@ -64,11 +64,11 @@ def get_time_period(hour):
 async def change_name_auto():
     try:
         dt = datetime.utcnow().replace(tzinfo=timezone.utc).astimezone(timezone(timedelta(hours=9)))
-        hour = dt.hour
+        hour = dt.strftime("%-I")
         minu = dt.strftime("%M")
-        period = get_time_period(hour)
+        period = get_time_period(dt.hour)
         shift = 1 if int(minu) > 30 else 0
-        hsym = time_emoji_symb[(hour % 12) * 2 + shift]
+        hsym = time_emoji_symb[(dt.hour % 12) * 2 + shift]
         _first_name = f"ミドリ♪ {period}{hour}:{minu} {hsym}"
         await bot.update_profile(first_name=_first_name)
         me = await bot.get_me()
