@@ -49,9 +49,11 @@ def get_time_period(hour):
         return "明け方"
     elif 6 <= hour < 9:
         return "朝"
-    elif 9 <= hour < 12:
+    elif 9 <= hour < 11:
         return "昼前"
-    elif 12 <= hour < 15:
+    elif 11 <= hour < 13:
+        return "昼頃"
+    elif 13 <= hour < 15:
         return "昼過ぎ"
     elif 15 <= hour < 18:
         return "夕方"
