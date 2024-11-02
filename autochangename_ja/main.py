@@ -11,7 +11,6 @@ pip_install("emoji")
 
 from emoji import emojize
 
-
 auto_change_name_init = False
 dizzy = emojize(":dizzy:", language="alias")
 cake = emojize(":cake:", language="alias")
@@ -43,6 +42,23 @@ all_time_emoji_name = [
 ]
 time_emoji_symb = [emojize(f":{s}:", language="alias") for s in all_time_emoji_name]
 
+def get_time_period(hour):
+    if 0 <= hour < 3:
+        return "未明"
+    elif 3 <= hour < 6:
+        return "明け方"
+    elif 6 <= hour < 9:
+        return "朝"
+    elif 9 <= hour < 12:
+        return "昼前"
+    elif 12 <= hour < 15:
+        return "昼過ぎ"
+    elif 15 <= hour < 18:
+        return "夕方"
+    elif 18 <= hour < 21:
+        return "夜初め"
+    else:
+        return "夜遅く"
 
 @scheduler.scheduled_job("cron", second=0, id="autochangename")
 async def change_name_auto():
@@ -50,9 +66,9 @@ async def change_name_auto():
         dt = datetime.utcnow().replace(tzinfo=timezone.utc).astimezone(timezone(timedelta(hours=9)))
         hour = dt.strftime("%-I")
         minu = dt.strftime("%M")
-        period = "午前" if dt.strftime("%p") == "AM" else "午後"
+        period = get_time_period(dt.hour)
         shift = 1 if int(minu) > 30 else 0
-        hsym = time_emoji_symb[(int(hour) % 12) * 2 + shift]
+        hsym = time_emoji_symb[(dt.hour % 12) * 2 + shift]
         _last_name = f"{period}{hour}:{minu} {hsym}"
         await bot.update_profile(last_name=_last_name)
         me = await bot.get_me()
