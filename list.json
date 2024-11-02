@@ -92,7 +92,7 @@
         },
         {
             "name": "autochangename",
-            "version": "1.204",
+            "version": "1.205",
             "section": "custom",
             "maintainer": "midori",
             "size": "1.718 kb",
@@ -102,7 +102,7 @@
         },
         {
             "name": "autochangename_ja",
-            "version": "1.0",
+            "version": "1.03",
             "section": "custom",
             "maintainer": "midori",
             "size": "1.718 kb",
@@ -112,7 +112,7 @@
         },
         {
             "name": "autochangename_zh",
-            "version": "1.0",
+            "version": "1.03",
             "section": "custom",
             "maintainer": "midori",
             "size": "1.718 kb",
