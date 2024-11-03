@@ -121,6 +121,16 @@
             "des": "自動更新 last_name (日本語 UTC+9)"
         },
         {
+            "name": "autochangename_ko",
+            "version": "1.0",
+            "section": "custom",
+            "maintainer": "midori",
+            "size": "1.718 kb",
+            "supported": true,
+            "des_short": "自動更新 last_name (韓国語 UTC+9)",
+            "des": "自動更新 last_name (韓国語 UTC+9)"
+        },
+        {
             "name": "autochangename_zh",
             "version": "1.04",
             "section": "custom",
