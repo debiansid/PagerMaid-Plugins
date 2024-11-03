@@ -101,6 +101,16 @@
             "des": "自動更新 first_name (みどり専用)"
         },
         {
+            "name": "autochangenamex",
+            "version": "1.04",
+            "section": "custom",
+            "maintainer": "midori",
+            "size": "1.0 kb",
+            "supported": true,
+            "des_short": "自動更新 first_name (UTC+9)",
+            "des": "自動更新 first_name (UTC+9)"
+        },
+        {
             "name": "autochangename_ja",
             "version": "1.03",
             "section": "custom",
@@ -119,16 +129,6 @@
             "supported": true,
             "des_short": "自動更新 last_name (中国語 UTC+8)",
             "des": "自動更新 last_name (中国語 UTC+8)"
-        },
-        {
-            "name": "autochangenamex",
-            "version": "1.03",
-            "section": "custom",
-            "maintainer": "midori",
-            "size": "1.0 kb",
-            "supported": true,
-            "des_short": "自動更新 last_name (絵文字なし UTC+8)",
-            "des": "自動更新 last_name (絵文字なし UTC+8)"
         },
         {
             "name": "xtao-some",
