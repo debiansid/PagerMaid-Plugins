@@ -43,7 +43,7 @@ all_time_emoji_name = [
 time_emoji_symb = [emojize(f":{s}:", language="alias") for s in all_time_emoji_name]
 
 def get_status_emoji(hour):
-    if 0 <= hour < 6:
+    if 1 <= hour < 6:
         return "💤"
     elif 6 <= hour < 7:
         return "🍳"
@@ -51,7 +51,9 @@ def get_status_emoji(hour):
         return "🪞"
     elif 8 <= hour < 9:
         return "🎒"
-    elif 9 <= hour < 11:
+    elif 9 <= hour < 10:
+        return "☕️"
+    elif 10 <= hour < 11:
         return "🐟"
     elif 11 <= hour < 12:
         return "🍚"
@@ -65,14 +67,18 @@ def get_status_emoji(hour):
         return "🛍️"
     elif 16 <= hour < 17:
         return "🍰"
-    elif 17 <= hour < 19:
+    elif 17 <= hour < 18:
+        return "🥗"
+    elif 18 <= hour < 19:
         return "🥘"
     elif 19 <= hour < 20:
-        return "♨️"
+        return "🍓"
     elif 20 <= hour < 21:
-        return "🍼"
+        return "🧸"
     elif 21 <= hour < 22:
         return "🛁"
+    elif 22 <= hour < 23:
+        return "🧴"
     else:
         return "🌙"
 
