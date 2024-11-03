@@ -6,14 +6,13 @@ from pagermaid.services import bot
 async def change_name_auto():
     try:
         time_cur = datetime.utcnow().replace(tzinfo=timezone.utc).astimezone(
-            timezone(timedelta(hours=8))
-        ).strftime("%I:%M %p")
-        hour, minu_p = time_cur.split(":")
-        minu, p = minu_p.split()
-        _last_name = f"{hour}:{minu} {p}"
-        await bot.update_profile(last_name=_last_name)
+            timezone(timedelta(hours=9))
+        ).strftime("%H:%M")
+        hour, minu = time_cur.split(":")
+        _first_name = f"{hour}:{minu}"
+        await bot.update_profile(first_name=_first_name)
         me = await bot.get_me()
-        if me.last_name != _last_name:
-            raise Exception("修改 last_name 失败")
+        if me.first_name != _first_name:
+            raise Exception("修改 first_name 失败")
     except Exception:
         pass
