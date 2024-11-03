@@ -46,19 +46,19 @@ def get_status_emoji(hour):
     if 1 <= hour < 6:
         return "💤"
     elif 6 <= hour < 7:
-        return "🍳"
+        return "☀️"
     elif 7 <= hour < 8:
-        return "🪞"
+        return "💄"
     elif 8 <= hour < 9:
-        return "🎒"
+        return "🍳"
     elif 9 <= hour < 10:
-        return "☕️"
+        return "🪞"
     elif 10 <= hour < 11:
         return "🐟"
     elif 11 <= hour < 12:
         return "🍚"
     elif 12 <= hour < 13:
-        return "💅"
+        return "💆‍♀️"
     elif 13 <= hour < 14:
         return "🥱"
     elif 14 <= hour < 15:
