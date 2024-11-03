@@ -42,6 +42,24 @@ all_time_emoji_name = [
 ]
 time_emoji_symb = [emojize(f":{s}:", language="alias") for s in all_time_emoji_name]
 
+def get_status_emoji(hour):
+    if 0 <= hour < 6:
+        return "💤"
+    elif 6 <= hour < 9:
+        return "🍳"
+    elif 9 <= hour < 11:
+        return "🐟"
+    elif 11 <= hour < 13:
+        return "🍚"
+    elif 13 <= hour < 15:
+        return "🥱"
+    elif 15 <= hour < 18:
+        return "🍘"
+    elif 18 <= hour < 21:
+        return "🥘"
+    else:
+        return "🌙"
+
 def get_time_period(hour):
     if 0 <= hour < 3:
         return "未明"
@@ -69,9 +87,10 @@ async def change_name_auto():
         hour = dt.strftime("%-I")
         minu = dt.strftime("%M")
         period = get_time_period(dt.hour)
+        emoji = get_status_emoji(dt.hour)
         shift = 1 if int(minu) > 30 else 0
         hsym = time_emoji_symb[(dt.hour % 12) * 2 + shift]
-        _first_name = f"ミドリ♪ {period}{hour}:{minu} {hsym}"
+        _first_name = f"ミドリ♪ {emoji} {period}{hour}:{minu} {hsym}"
         await bot.update_profile(first_name=_first_name)
         me = await bot.get_me()
         if me.first_name != _first_name:
