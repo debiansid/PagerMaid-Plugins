@@ -110,7 +110,7 @@ async def change_name_auto():
         minu = dt.strftime("%M")
         period = get_time_period(dt.hour)
         emoji = get_status_emoji(dt.hour)
-        shift = 1 if int(minu) > 30 else 0
+        shift = 1 if int(minu) >= 30 else 0
         hsym = time_emoji_symb[(dt.hour % 12) * 2 + shift]
         _first_name = f"ミドリ♪{emoji}{period}{hour}:{minu} {hsym}"
         await bot.update_profile(first_name=_first_name)
