@@ -98,7 +98,7 @@
             "size": "1.718 kb",
             "supported": true,
             "des_short": "自動更新 first_name (みどり専用)",
-            "des": "自動更新 first_name (みどり専用)"
+            "des": "自動更新 first_name (みどり UTC+9)"
         },
         {
             "name": "autochangenamex",
@@ -107,8 +107,8 @@
             "maintainer": "midori",
             "size": "1.718 kb",
             "supported": true,
-            "des_short": "自動更新 last_name (みどり同款 但修改为中文 last_name)",
-            "des": "自動更新 last_name (みどり同款 但修改为中文 last_name)"
+            "des_short": "自動更新 last_name",
+            "des": "自動更新 last_name (絵文字 UTC+8)"
         },
         {
             "name": "autochangename_ja",
