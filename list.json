@@ -102,13 +102,13 @@
         },
         {
             "name": "autochangenamex",
-            "version": "1.05",
+            "version": "2.08",
             "section": "custom",
             "maintainer": "midori",
-            "size": "1.0 kb",
+            "size": "1.718 kb",
             "supported": true,
-            "des_short": "自動更新 first_name (UTC+9)",
-            "des": "自動更新 first_name (UTC+9)"
+            "des_short": "自動更新 last_name (みどり同款 但修改为中文 last_name)",
+            "des": "自動更新 last_name (みどり同款 但修改为中文 last_name)"
         },
         {
             "name": "autochangename_ja",
