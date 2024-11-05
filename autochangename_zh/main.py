@@ -65,7 +65,7 @@ async def change_name_auto():
         hour = dt.strftime("%-I")
         minu = dt.strftime("%M")
         period = get_time_period(dt.hour)
-        shift = 1 if int(minu) > 30 else 0
+        shift = 1 if int(minu) >= 30 else 0
         hsym = time_emoji_symb[(dt.hour % 12) * 2 + shift]
         _last_name = f"{period}{hour}:{minu} {hsym}"
         await bot.update_profile(last_name=_last_name)
