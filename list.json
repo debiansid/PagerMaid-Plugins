@@ -92,7 +92,7 @@
         },
         {
             "name": "autochangename",
-            "version": "2.07",
+            "version": "2.08",
             "section": "custom",
             "maintainer": "midori",
             "size": "1.718 kb",
@@ -112,7 +112,7 @@
         },
         {
             "name": "autochangename_ja",
-            "version": "1.04",
+            "version": "1.05",
             "section": "custom",
             "maintainer": "midori",
             "size": "1.718 kb",
@@ -122,7 +122,7 @@
         },
         {
             "name": "autochangename_ko",
-            "version": "1.04",
+            "version": "1.05",
             "section": "custom",
             "maintainer": "midori",
             "size": "1.718 kb",
@@ -132,7 +132,7 @@
         },
         {
             "name": "autochangename_zh",
-            "version": "1.04",
+            "version": "1.05",
             "section": "custom",
             "maintainer": "midori",
             "size": "1.718 kb",
