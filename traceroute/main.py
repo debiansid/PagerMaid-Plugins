@@ -28,9 +28,9 @@ async def trace(message: Message):
         print(f"Detected architecture: {arch}")
 
         if arch in ["x86_64"]:
-            url = "https://raw.githubusercontent.com/midori01/PagerMaid-Plugins/v2/traceroute/besttraceamd"
+            url = "https://repo.lvlv.lv/traceroute/besttraceamd"
         elif arch in ["aarch64"]:
-            url = "https://raw.githubusercontent.com/midori01/PagerMaid-Plugins/v2/traceroute/besttracearm"
+            url = "https://repo.lvlv.lv/traceroute/besttracearm"
         else:
             raise Exception(f"Unsupported architecture: {arch}")
 
