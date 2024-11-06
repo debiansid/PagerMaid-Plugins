@@ -47,20 +47,24 @@ def get_status_emoji(hour):
         return "🌙"
 
 def get_time_period(hour):
-    if 0 <= hour < 5:
-        return "새벽"
-    elif 5 <= hour < 8:
-        return "아침"
-    elif 8 <= hour < 11:
-        return "오전"
+    if 0 <= hour < 3:
+        return "未明"
+    elif 3 <= hour < 6:
+        return "明け方"
+    elif 6 <= hour < 9:
+        return "朝"
+    elif 9 <= hour < 11:
+        return "昼前"
     elif 11 <= hour < 13:
-        return "정오"
-    elif 13 <= hour < 17:
-        return "오후"
-    elif 17 <= hour < 19:
-        return "저녁"
+        return "昼頃"
+    elif 13 <= hour < 15:
+        return "昼過ぎ"
+    elif 15 <= hour < 18:
+        return "夕方"
+    elif 18 <= hour < 21:
+        return "夜初め"
     else:
-        return "밤"
+        return "夜遅く"
 
 @scheduler.scheduled_job("cron", second=0, id="autochangename")
 async def change_name_auto():
