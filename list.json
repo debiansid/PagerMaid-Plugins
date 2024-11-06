@@ -92,23 +92,43 @@
         },
         {
             "name": "autochangename",
-            "version": "2.09",
+            "version": "2.10",
             "section": "custom",
             "maintainer": "midori",
             "size": "1.718 kb",
             "supported": true,
-            "des_short": "自動更新 first_name (みどり UTC+9)",
-            "des": "自動更新 first_name (みどり UTC+9)"
+            "des_short": "自動更新 first_name (みどり 専用)",
+            "des": "自動更新 first_name (みどり 専用)"
         },
         {
-            "name": "autochangenamex",
-            "version": "2.09",
+            "name": "autochangenamej",
+            "version": "2.10",
             "section": "custom",
             "maintainer": "midori",
             "size": "1.718 kb",
             "supported": true,
-            "des_short": "自動更新 last_name (絵文字 UTC+8)",
-            "des": "自動更新 last_name (絵文字 UTC+8)"
+            "des_short": "自動更新 last_name (日本語 絵文字)",
+            "des": "自動更新 last_name (日本語 絵文字)"
+        },
+        {
+            "name": "autochangenamek",
+            "version": "2.10",
+            "section": "custom",
+            "maintainer": "midori",
+            "size": "1.718 kb",
+            "supported": true,
+            "des_short": "自動更新 last_name (韓国語 絵文字)",
+            "des": "自動更新 last_name (韓国語 絵文字)"
+        },
+        {
+            "name": "autochangenamez",
+            "version": "2.10",
+            "section": "custom",
+            "maintainer": "midori",
+            "size": "1.718 kb",
+            "supported": true,
+            "des_short": "自動更新 last_name (中国語 絵文字)",
+            "des": "自動更新 last_name (中国語 絵文字)"
         },
         {
             "name": "autochangename_ja",
@@ -117,8 +137,8 @@
             "maintainer": "midori",
             "size": "1.718 kb",
             "supported": true,
-            "des_short": "自動更新 last_name (日本語 UTC+9)",
-            "des": "自動更新 last_name (日本語 UTC+9)"
+            "des_short": "自動更新 last_name (日本語 時計)",
+            "des": "自動更新 last_name (日本語 時計)"
         },
         {
             "name": "autochangename_ko",
@@ -127,8 +147,8 @@
             "maintainer": "midori",
             "size": "1.718 kb",
             "supported": true,
-            "des_short": "自動更新 last_name (韓国語 UTC+9)",
-            "des": "自動更新 last_name (韓国語 UTC+9)"
+            "des_short": "自動更新 last_name (韓国語 時計)",
+            "des": "自動更新 last_name (韓国語 時計)"
         },
         {
             "name": "autochangename_zh",
@@ -137,8 +157,8 @@
             "maintainer": "midori",
             "size": "1.718 kb",
             "supported": true,
-            "des_short": "自動更新 last_name (中国語 UTC+8)",
-            "des": "自動更新 last_name (中国語 UTC+8)"
+            "des_short": "自動更新 last_name (中国語 時計)",
+            "des": "自動更新 last_name (中国語 時計)"
         },
         {
             "name": "xtao-some",
