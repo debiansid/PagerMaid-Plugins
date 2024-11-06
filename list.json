@@ -101,7 +101,7 @@
             "des": "自動更新 first_name (みどり 専用)"
         },
         {
-            "name": "autochangenamej",
+            "name": "autochangenamex_ja",
             "version": "2.10",
             "section": "custom",
             "maintainer": "midori",
@@ -111,7 +111,7 @@
             "des": "自動更新 last_name (日本語 絵文字)"
         },
         {
-            "name": "autochangenamek",
+            "name": "autochangenamex_ko",
             "version": "2.10",
             "section": "custom",
             "maintainer": "midori",
@@ -121,7 +121,7 @@
             "des": "自動更新 last_name (韓国語 絵文字)"
         },
         {
-            "name": "autochangenamez",
+            "name": "autochangenamex_zh",
             "version": "2.10",
             "section": "custom",
             "maintainer": "midori",
@@ -132,7 +132,7 @@
         },
         {
             "name": "autochangename_ja",
-            "version": "1.05",
+            "version": "1.10",
             "section": "custom",
             "maintainer": "midori",
             "size": "1.718 kb",
@@ -142,7 +142,7 @@
         },
         {
             "name": "autochangename_ko",
-            "version": "1.05",
+            "version": "1.10",
             "section": "custom",
             "maintainer": "midori",
             "size": "1.718 kb",
@@ -152,7 +152,7 @@
         },
         {
             "name": "autochangename_zh",
-            "version": "1.05",
+            "version": "1.10",
             "section": "custom",
             "maintainer": "midori",
             "size": "1.718 kb",
