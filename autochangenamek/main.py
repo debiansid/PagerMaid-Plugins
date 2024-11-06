@@ -48,24 +48,24 @@ def get_status_emoji(hour):
 
 def get_time_period(hour):
     if 0 <= hour < 5:
-        return "凌晨"
+        return "새벽"
     elif 5 <= hour < 8:
-        return "早晨"
+        return "아침"
     elif 8 <= hour < 11:
-        return "上午"
+        return "오전"
     elif 11 <= hour < 13:
-        return "中午"
+        return "정오"
     elif 13 <= hour < 17:
-        return "下午"
+        return "오후"
     elif 17 <= hour < 19:
-        return "傍晚"
+        return "저녁"
     else:
-        return "晚上"
+        return "밤"
 
 @scheduler.scheduled_job("cron", second=0, id="autochangename")
 async def change_name_auto():
     try:
-        dt = datetime.utcnow().replace(tzinfo=timezone.utc).astimezone(timezone(timedelta(hours=8)))
+        dt = datetime.utcnow().replace(tzinfo=timezone.utc).astimezone(timezone(timedelta(hours=9)))
         hour = dt.strftime("%-I")
         minu = dt.strftime("%M")
         period = get_time_period(dt.hour)
