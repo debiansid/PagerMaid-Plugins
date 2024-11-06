@@ -2,45 +2,9 @@
 
 import traceback
 from datetime import datetime, timedelta, timezone
-
 from pagermaid.dependence import scheduler
 from pagermaid.services import bot
-from pagermaid.utils import pip_install, logs
-
-pip_install("emoji")
-
-from emoji import emojize
-
-auto_change_name_init = False
-dizzy = emojize(":dizzy:", language="alias")
-cake = emojize(":cake:", language="alias")
-all_time_emoji_name = [
-    "clock12",
-    "clock1230",
-    "clock1",
-    "clock130",
-    "clock2",
-    "clock230",
-    "clock3",
-    "clock330",
-    "clock4",
-    "clock430",
-    "clock5",
-    "clock530",
-    "clock6",
-    "clock630",
-    "clock7",
-    "clock730",
-    "clock8",
-    "clock830",
-    "clock9",
-    "clock930",
-    "clock10",
-    "clock1030",
-    "clock11",
-    "clock1130",
-]
-time_emoji_symb = [emojize(f":{s}:", language="alias") for s in all_time_emoji_name]
+from pagermaid.utils import logs
 
 def get_status_emoji(hour):
     if 1 <= hour < 6:
@@ -110,8 +74,6 @@ async def change_name_auto():
         minu = dt.strftime("%M")
         period = get_time_period(dt.hour)
         emoji = get_status_emoji(dt.hour)
-        shift = 1 if int(minu) >= 30 else 0
-        hsym = time_emoji_symb[(dt.hour % 12) * 2 + shift]
         _first_name = f"ミドリ♪ {period}{hour}:{minu} {emoji}"
         await bot.update_profile(first_name=_first_name)
         me = await bot.get_me()
