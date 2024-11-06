@@ -1,68 +1,51 @@
-import json
 from json.decoder import JSONDecodeError
-from pyrogram import Client
 
-from pagermaid.enums import Message
+from pagermaid.enums import Message, AsyncClient
 from pagermaid.listener import listener
-from pagermaid.utils import pip_install
-
-pip_install("requests")
-
-import requests
 
 
 @listener(command="bin", description="查询信用卡信息", parameters="[bin（4到8位数字）]")
-async def card(_: Client, message: Message):
+async def card(request: AsyncClient, message: Message):
     await message.edit("正在查询中...")
     try:
-        card_bin = message.arguments
+        card_bin = int(message.arguments)
     except ValueError:
         await message.edit("出错了呜呜呜 ~ 无效的参数。")
         return
     try:
-        r = requests.get(f"https://lookup.binlist.net/{card_bin}")
+        r = await request.get(f"https://data.handyapi.com/bin/{card_bin}")
     except:
-        await message.edit("出错了呜呜呜 ~ 无法访问到binlist。")
+        await message.edit("出错了呜呜呜 ~ 无法访问到 handyapi 。")
         return
-    if r.status_code == 404:
-        await message.edit("出错了呜呜呜 ~ 目标卡头不存在")
-        return
-    if r.status_code == 429:
-        await message.edit("出错了呜呜呜 ~ 每分钟限额超过，请等待一分钟再试")
-        return
-
     try:
-        bin_json = json.loads(r.content.decode("utf-8"))
+        bin_json = r.json()
     except JSONDecodeError:
         await message.edit("出错了呜呜呜 ~ 无效的参数。")
+        return
+    status = bin_json.get("Status")
+    if status != "SUCCESS":
+        await message.edit("出错了呜呜呜 ~ 无效的 bin 。")
         return
 
     msg_out = [f"BIN：{card_bin}"]
     try:
-        msg_out.extend(["卡品牌：" + bin_json["scheme"]])
+        msg_out.append("卡品牌：" + bin_json["Scheme"].lower())
     except (KeyError, TypeError):
         pass
     try:
-        msg_out.extend(["卡类型：" + bin_json["type"]])
+        msg_out.append("卡类型：" + bin_json["Type"].lower())
     except (KeyError, TypeError):
         pass
     try:
-        msg_out.extend(["卡种类：" + bin_json["brand"]])
+        msg_out.append("卡种类：" + bin_json["CardTier"].lower())
     except (KeyError, TypeError):
         pass
     try:
-        msg_out.extend(["发卡行：" + bin_json["bank"]["name"]])
+        msg_out.append("发卡行：" + bin_json["Issuer"].lower())
     except (KeyError, TypeError):
         pass
     try:
-        if bin_json["prepaid"]:
-            msg_out.extend(["是否预付：是"])
-        else:
-            msg_out.extend(["是否预付：否"])
-    except (KeyError, TypeError):
-        pass
-    try:
-        msg_out.extend(["发卡国家：" + bin_json["country"]["name"]])
+        msg_out.append("发卡国家：" + bin_json["Country"]["Name"])
     except (KeyError, TypeError):
         pass
     await message.edit("\n".join(msg_out))

@@ -242,10 +242,10 @@
         },
         {
             "name": "bin",
-            "version": "1.052",
+            "version": "1.062",
             "section": "daily",
             "maintainer": "paulkm",
-            "size": "2.098 kb",
+            "size": "1.688 kb",
             "supported": true,
             "des_short": "查询信用卡bin信息。",
             "des": "使用binlist api查询，1分钟限额10次否则报错。使用方法：,bin xxx （xxx为信用卡卡号前4-8位，推荐6位）"
