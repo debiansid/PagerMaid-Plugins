@@ -2,12 +2,8 @@
 
 import traceback
 from datetime import datetime, timedelta, timezone
-
 from pagermaid.dependence import scheduler
 from pagermaid.services import bot
-from pagermaid.utils import pip_install, logs
-
-auto_change_name_init = False
 
 def get_status_emoji(hour):
     if 1 <= hour < 6:
