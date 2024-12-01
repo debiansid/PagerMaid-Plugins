@@ -412,10 +412,10 @@
         },
         {
             "name": "sb",
-            "version": "1.06",
+            "version": "1.07",
             "section": "chat",
             "maintainer": "xtaodada",
-            "size": "4.364 kb",
+            "size": "4.656 kb",
             "supported": true,
             "des_short": "在自己拥有管理员权限的共同群组中封禁一位用户。",
             "des": "在自己拥有管理员权限的共同群组中封禁一位用户。\n\n指令： `,sb` 回复用户"
